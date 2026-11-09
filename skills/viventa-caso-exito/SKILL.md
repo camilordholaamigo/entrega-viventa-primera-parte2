@@ -47,7 +47,7 @@ héroe (Viventa aparece recién en el Acto 2). Corre **en una sola pasada**, sin
 
 | Campo | De dónde sale | Si falta, preguntar |
 |---|---|---|
-| Material del cliente | El usuario pega transcript, notas, respuestas o un comentario | *"¿Tenés la grabación o el transcript de la entrevista, o solo el comentario?"* — sin nada, modo guía en blanco |
+| Material del cliente | El usuario pega transcript, notas, respuestas o un comentario | *"¿Tienes la grabación o el transcript de la entrevista, o solo el comentario?"* — sin nada, modo guía en blanco |
 | Timecodes de la grabación | El transcript con marcas de tiempo | *"¿El transcript trae los minutos?"* — si no, cada cita va `[falta timecode]` y el caso queda 🔴 |
 | Nombre, ciudad de origen, proyecto y año de compra | El usuario o el CRM | *"¿Nombre, desde qué ciudad compró, qué proyecto y en qué año?"* — sin respuesta: `[falta dato: confirmar con el CRM]`, nunca se inventa |
 | Registro de consentimiento | El usuario (WhatsApp con "sí, autorizo" o documento firmado) | *"¿Hay autorización por escrito? ¿Qué cubre: nombre, foto, voz, cifras?"* — sin registro, estado 🔴 y se produce igual para uso interno |
@@ -61,23 +61,23 @@ voz y reglas de marca salen de `references/cifras-canonicas.md` y `references/co
 
 ## Workflow
 
-1. **Elegí el modo.** Si hay entrevista, transcript o respuestas a preguntas de **proceso** →
+1. **Elige el modo.** Si hay entrevista, transcript o respuestas a preguntas de **proceso** →
    modo caso (Paso 4). Si no hay nada, o solo un elogio o un comentario de redes → modo guía
    (Paso 2), personalizado con lo poco que dijo. Un comentario de Instagram no es un caso.
-2. **Modo guía: armá la guía.** Copiá la plantilla 1 de `references/plantillas.md` (una página,
+2. **Modo guía: arma la guía.** Copia la plantilla 1 de `references/plantillas.md` (una página,
    16 preguntas en Antes 40 % / Durante 40 % / Hoy 20 %, apertura leída en voz alta y cierre de
-   consentimiento en caliente) y completá cabecera y el "hace {N} años" con los datos que haya.
-   Anexá **siempre** la tabla de repreguntas que está debajo de esa plantilla (convierte a quien
+   consentimiento en caliente) y completa cabecera y el "hace {N} años" con los datos que haya.
+   Anexa **siempre** la tabla de repreguntas que está debajo de esa plantilla (convierte a quien
    vendió en entrevistadora). Si entrevista quien vendió, la ficha de control marca
    `⚠️ riesgo de deseabilidad social`. La guía sigue las 4 fuerzas
    (`Empuje + Atracción > Ansiedad + Hábito`, detalle en `references/tecnica-entrevista.md`):
    Ansiedad y Hábito son las que el cliente no dice solo, por eso las preguntas 3, 5 y 9 son las
    madres. **Ninguna pregunta nombra la emoción**: ✅ "¿qué era lo peor que te imaginabas?"
    · ❌ "¿sentiste miedo de que te estafaran?".
-3. **Modo guía: sumá a quién entrevistar.** Desembolso de menos de 12 meses primero, luego
+3. **Modo guía: suma a quién entrevistar.** Desembolso de menos de 12 meses primero, luego
    recompradores, y no más de 2 casos seguidos de la misma plaza. Si se puede, que no entreviste
-   quien vendió. Entregá la guía y cerrá: el modo guía no corre el Paso 9 ni escribe en `indice-casos.md`, que solo indexa casos.
-4. **Modo caso: clasificá cada línea** en uno de tres niveles:
+   quien vendió. Entrega la guía y cierra: el modo guía no corre el Paso 9 ni escribe en `indice-casos.md`, que solo indexa casos.
+4. **Modo caso: clasifica cada línea** en uno de tres niveles:
 
    | Nivel | Forma | ¿Publicable? |
    |---|---|---|
@@ -91,7 +91,7 @@ voz y reglas de marca salen de `references/cifras-canonicas.md` y `references/co
    cita = un timecode continuo), atribuirle a uno lo que dijo otro, "mejorar" su español.
    Otras marcas: `[falta timecode: …]`, `[falta dato: …]`, `[falta consentimiento: …]`,
    `[⚠ no verificado: …]`.
-5. **Modo caso: armá los 3 actos** con la plantilla 2 de `references/plantillas.md`:
+5. **Modo caso: arma los 3 actos** con la plantilla 2 de `references/plantillas.md`:
 
    | Acto | Función | Miedo que desactiva | Peso |
    |---|---|---|---|
@@ -105,11 +105,11 @@ voz y reglas de marca salen de `references/cifras-canonicas.md` y `references/co
    (lugar, hora, persona, objeto) y al menos una aspereza real citada; sin aspereza,
    `[falta verbatim: pregunta 12]`. Emociones solo con la palabra del cliente: si dijo "raro",
    el caso dice "raro".
-6. **Tratá las fuentes sin consentimiento.** Citas del documento interno de verbatims de clientes
+6. **Trata las fuentes sin consentimiento.** Citas del documento interno de verbatims de clientes
    con desembolso o de comentarios públicos del VOC van `[⚠ no verificado — sin consentimiento
    registrado]`: sirven para calibrar tono y elegir a quién llamar, nunca bajan a un derivado
    externo. Un handle público no es consentimiento comercial.
-7. **Aplicá compliance** (`references/compliance.md`):
+7. **Aplica compliance** (`references/compliance.md`):
    - **Estado:** 🟢 publicable solo con consentimiento escrito que cubra alcance (redes, pauta,
      web, material comercial), qué se usa (nombre, foto, voz, cifras), revocación, mayoría de
      edad y fecha. Cualquier faltante → 🔴. Si hubo incentivo, la pieza lo divulga.
@@ -121,7 +121,7 @@ voz y reglas de marca salen de `references/cifras-canonicas.md` y `references/co
      1026.24). El VA loan no financia propiedad fuera de EE. UU. y sus territorios.
    - Toda pieza externa con caso individual cierra con *"Experiencia de un cliente. Los
      resultados dependen de cada caso."*
-8. **Derivá los 3 entregables** (plantillas 3-5 de `references/plantillas.md`). Son recortes del
+8. **Deriva los 3 entregables** (plantillas 3-5 de `references/plantillas.md`). Son recortes del
    material verificado: ningún texto nuevo en boca del cliente, y todos **heredan el estado** del
    caso.
    - **Guion de video 60-90 s**: plan de montaje grabable con una llamada, una foto y un editor
@@ -132,17 +132,17 @@ voz y reglas de marca salen de `references/cifras-canonicas.md` y `references/co
    - **3 recortes**: uno por miedo, máximo 14 palabras, cortados solo por los extremos. Miedo sin
      cita → recorte vacío con `[falta verbatim]`, no se sustituye. Ningún recorte afirma más que
      el caso.
-   - **Ficha comercial** (uso interno): tabla "si el lead dice… / contale que… / cita exacta",
+   - **Ficha comercial** (uso interno): tabla "si el lead dice… / cuéntale que… / cita exacta",
      a qué leads sirve y a cuáles no, y qué no se puede decir del caso.
-9. **Autovalidá, guardá e indexá.** Corré los gates: cero citas sin timecode, estado coherente
+9. **Autovalida, guarda e indexa.** Corre los gates: cero citas sin timecode, estado coherente
    con el consentimiento, Acto 1 con miedo citado, Acto 2 con quiebre citado, cero cifras sin
    validar en derivados, cero tasa/cuota/plazo, "Viventa" ≤ 1 en Acto 1. Test de unicidad contra
    el índice: es **duplicado** si comparte con un caso ya indexado el mismo miedo del Acto 1, la
    misma plaza de origen y el mismo detalle irrepetible (lugar, hora, persona u objeto). Dos de
    tres → se marca "parecido" y se reescribe el Acto 1 con otro detalle de la grabación; tres de
    tres → se marca para descartar (heurística propia, ajustable). Sin índice → "sin casos previos
-   para comparar". Guardá y sumá la fila al índice (plantilla 6).
-   Decí en el output que **la verificación de audio la tiene que hacer una persona distinta de
+   para comparar". Guarda y suma la fila al índice (plantilla 6).
+   Di en el output que **la verificación de audio la tiene que hacer una persona distinta de
    quien redactó**: 3 citas al azar contra la grabación, 3 de 3 exactas o se rehace. El skill no
    puede ejecutar ese gate.
 

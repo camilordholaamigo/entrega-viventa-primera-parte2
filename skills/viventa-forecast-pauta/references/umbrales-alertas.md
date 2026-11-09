@@ -92,7 +92,7 @@ y son **cuatro conversaciones distintas con cuatro dueños distintos**.
 | **Gasto atrasado** | 🟢 Mejor de lo planeado | 🟡 **ENTREGA** — el CPL está sano, no está gastando |
 | **Gasto sobre-ejecutando** | 🟡 Volumen comprado, revisar el marginal | 🔴🔴 Peor cuadrante |
 
-**Nombrá el cuadrante con su palabra: eficiencia o entrega.** No son sinónimos:
+**Nombra el cuadrante con su palabra: eficiencia o entrega.** No son sinónimos:
 
 - **Eficiencia** — el creativo, el ángulo o la audiencia dejaron de rendir. Se arregla cambiando
   qué se dice. Dueño: contenido y agencia.

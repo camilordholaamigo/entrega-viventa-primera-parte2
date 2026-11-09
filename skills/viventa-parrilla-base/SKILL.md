@@ -4,11 +4,11 @@ description: >-
   Convierte el export agregado de la base de Zoho en el conteo real por microsegmento (fase,
   engagement, propósito, presupuesto, país, señal de llamada), la parrilla del mes con correos
   redactados y proyectos de Vivehome sugeridos por segmento, el criterio para pasar candidatos a
-  comercial y el plan de impacto dentro del techo de deliverability. No envía. USA cuando: "armá la
+  comercial y el plan de impacto dentro del techo de deliverability. No envía. USA cuando: "arma la
   parrilla del mes para candidatos y contactos", "segmenta la base de 250 mil", "qué proyectos les
   mandamos a los candidatos de España". Es la base entera: viventa-match-proyecto-lead resuelve un lead.
 metadata:
-  version: "1.2.0"
+  version: "2.0.0"
   domain: "convert"
   client: "viventa"
   blueprint: "marketing"
@@ -24,12 +24,21 @@ Invariantes: **planifica y redacta; no envía, no segmenta en Zoho, no toca la b
 #1 del cliente). La parrilla **es un plan de volumen restringido por deliverability**, no un
 calendario de ideas: email tiene un CAC fully-loaded de [cifra interna] contra [cifra interna] de Meta y [cifra interna] de un evento,
 pero el dominio ya cae en spam y la base de ~250K está sin limpiar. El problema no es tener 250K
-registros; es escribirles a los 250K. **Una sola pasada**: sin loops ni research web (cuentas de IA
-compartidas, hasta 4 horas sin créditos).
+registros; es escribirles a los 250K. **Una sola pasada**: sin loops; la única investigación es la
+de hooks del estándar de copy, acotada (cuentas de IA compartidas, hasta 4 horas sin créditos).
+
+> **Qué cambió en la v2 (feedback del equipo, noviembre de 2026):** *"la skill de parrilla tiene
+> falencias: pide muchas cosas, preguntas innecesarias, irrelevantes o excesivas"*. Ahora **no
+> pregunta nada antes de empezar**. Con lo que el usuario pegue (un export de Zoho, unos conteos
+> sueltos, o nada) arma la parrilla: si no hay conteos, la arma por **segmentos definidos** con la
+> columna "Conteo (lo pone Zoho)" vacía y el techo calculado con el supuesto conservador. Los datos que
+> faltan se listan **al final, en un solo bloque**, como "con esto la parrilla mejora", nunca como
+> condición. Y los correos se escriben con el estándar de copy
+> (`references/copy-que-convierte.md`), con asunto B para probar.
 
 ## Cuándo usar
 
-- Explícito: "armá la parrilla del mes para candidatos y contactos", "cuántos leads tengo de
+- Explícito: "arma la parrilla del mes para candidatos y contactos", "cuántos leads tengo de
   cada tipo", "a quién le mando qué este mes", "segmentar la base por inversión e ingresos",
   "el plan de comunicaciones de la base", "qué le escribimos a los que están en fase de
   interés", "cómo impacto a cada categoría de la base".
@@ -45,44 +54,45 @@ compartidas, hasta 4 horas sin créditos).
 
 ## Input del usuario
 
-| Campo | De dónde sale | Si falta, preguntar |
+**Regla de esta tabla: nada se pregunta antes de empezar.** Lo que falte se resuelve con el default
+de la columna y se lista al final, en el Bloque E, en un solo mensaje para quien lo tiene.
+
+| Campo | De dónde sale | Si falta |
 |---|---|---|
-| Export agregado: conteo por fase del funnel | Responsable de email marketing (Zoho) | *"Pasame el conteo de la base por fase del funnel, agregado, sin nombres ni correos."* **Bloquea**: Fase 1 emite el bloque de inputs requeridos |
-| Corte de engagement por tier (abrió ≤90d / 91-180d / +180d / rebote) | Responsable de email marketing | *"¿Cuántos contactos hay en cada tier de apertura?"* **Bloquea**: define el techo |
+| Export agregado: conteo por fase del funnel | Lo pega el usuario (Zoho) | **No bloquea.** La parrilla se arma con los segmentos definidos y la columna de conteo vacía, marcada "lo pone Zoho". Bloque E lo pide |
+| Corte de engagement por tier (abrió ≤90d / 91-180d / +180d / rebote) | Lo pega el usuario | **No bloquea.** Se usan las reglas por tier (tier 3 y 4 fuera) y el techo se escribe como fórmula, no como número |
+| Tema o prioridad del mes (p. ej. compra conjunta, proyectos con mejores tasas) | El usuario | No se pregunta. Si viene, los segmentos activos se ordenan para empujar ese tema |
 | Ciudad o país de interés, agregado | Export de Zoho | No se pregunta: el eje se omite y se declara |
 | Tipo de inversión declarado (formulario CC) | Export de Zoho | No se pregunta: el eje se omite y se declara |
 | Rango de ingresos declarado | Export de Zoho | No se pregunta: el eje se omite y se declara |
 | Mes objetivo | El usuario | No se pregunta: el mes entrante, declarado |
-| Eventos del mes y su volumen de convocatoria | `viventa-brief-evento` / `viventa-comunicaciones-campana` | *"¿Hay eventos este mes? ¿Cuántos correos de convocatoria salen?"* Si no se sabe: se advierte que la parrilla puede chocar con la convocatoria y se resta 0, declarado |
+| Eventos del mes y su volumen de convocatoria | `viventa-brief-evento` / `viventa-comunicaciones-campana` | No se pregunta. Si no se sabe: se advierte en una línea que la parrilla puede chocar con la convocatoria y se resta 0, declarado |
 | Insumo del mes anterior | `viventa-reporte-campanas`, sección INSUMO PARA LA PARRILLA | No se pregunta: se arma sin aprendizaje y **se dice explícitamente** |
 | Salud del dominio / tasa de rebote actual | Responsable de email marketing | No se pregunta: supuesto conservador de `references/techo-deliverability.md`, marcado `[⚠ no verificado]` |
 | Cifras canónicas | `references/cifras-canonicas.md` | Si no está accesible: el copy no usa ninguna cifra de negocio y se declara |
 | Presupuesto o preaprobado declarado (formulario CC), agregado por rango | Export de Zoho | No se pregunta: el eje se omite y se declara |
 | Señal de llamada (Aircall), agregada por categoría | Tecnología o el responsable de email, como conteos: "objeción cuota inicial", "pidió proyectos en {ciudad}", "no contesta"… | No se pregunta: mientras tecnología no exponga los resúmenes, el eje se omite y se dice. **Nunca** resúmenes individuales |
-| Inventario de proyectos | Export de Vivehome o la hoja de `viventa-datos-publicables` (proyecto, ciudad, precio desde, moneda, fecha de corte) | *"¿Me pasas el inventario vigente con precio desde y fecha de corte?"* Sin él, los correos no sugieren proyectos y se declara |
+| Inventario de proyectos | Export de Vivehome / Zoho Analytics o la hoja de `viventa-datos-publicables` (proyecto, ciudad, precio desde, moneda, fecha de corte) | No se pregunta. Sin él, los correos llevan el ángulo sin proyecto y el Bloque E dice que con el inventario se suman proyectos |
 | Formulario prellenado | Zoho Forms | No se pregunta: el CTA apunta al formulario de actualización; los parámetros de prellenado los pone Zoho Campaigns |
 
 ## Workflow
 
-### Fase 1 — Gate de inputs
+### Fase 1 — Ver qué hay (sin frenar)
 
-Si falta el conteo por fase o el corte por tier, **detenete** y emití solo:
+Mira lo que el usuario pegó y elige el modo, sin preguntar:
 
-```
-⛔ NO SE PUEDE ARMAR LA PARRILLA — {mes}
+| Lo que hay | Modo | Qué cambia |
+|---|---|---|
+| Conteos por fase **y** por tier | **Con conteos** | Todo el workflow como está escrito: mapa con números, techo con número, recorte por techo |
+| Algunos conteos, o ninguno | **Por segmentos definidos** | El mapa (Fase 2) lista los segmentos con su **regla de filtro en Zoho** y la columna "Conteo (lo pone Zoho)" vacía; la Fase 3 prioriza por cercanía a la conversión y tier, sin el umbral de 200; el techo (Fase 4) va como fórmula con el supuesto conservador. La parrilla y los correos salen completos |
 
-INPUTS REQUERIDOS
-- Conteo de la base por fase del funnel → pedir a: responsable de email marketing (Zoho)
-- Corte de engagement por tier (abrió ≤90d / 91-180d / +180d / rebote) → pedir a: responsable de email marketing
-
-Motivo: sin conteos, una parrilla es una lista de ideas sin plan de impacto.
-```
-
-**Ese bloque es un output válido.** No estimes la composición de la base.
+**No estimes la composición de la base ni inventes conteos.** En modo "por segmentos definidos" el
+plan de impacto dice: *"Antes de programar, llenen la columna de conteo en Zoho y recorten con la
+regla del techo"*.
 
 ### Fase 2 — Mapa de la base
 
-Cruzá los ejes que tengas. **Nunca inventes un eje que no vino en el input.**
+Cruza los ejes que tengas. **Nunca inventes un eje que no vino en el input.**
 
 Ejes, en orden de prioridad:
 1. **Fase del funnel** — obligatorio
@@ -107,8 +117,8 @@ Reglas del mapa:
 
 ### Fase 3 — Priorizar segmentos
 
-No todos los segmentos se atacan. Priorizá por **cercanía a la conversión** (fase del funnel más avanzada
-primero), luego **tier** (1 antes que 2), luego **volumen**, y quedate con un máximo de **6 segmentos
+No todos los segmentos se atacan. Prioriza por **cercanía a la conversión** (fase del funnel más avanzada
+primero), luego **tier** (1 antes que 2), luego **volumen**, y quédate con un máximo de **6 segmentos
 activos**.
 
 Un segmento entra a la parrilla si cumple las tres:
@@ -149,15 +159,15 @@ Una fila por **segmento × envío**. Cada fila trae:
 | Fecha | Martes, miércoles o jueves. Nunca dos envíos al mismo segmento con <6 días |
 | Ángulo | Uno de las 4 P (Pain · Plan · Proof · Philosophy) |
 | Propuesta gráfica | Una línea describiendo la pieza. **No la diseña** |
-| Asunto | Redactado, ≤ 45 caracteres |
+| Asunto | Redactado, ≤ 45 caracteres, **con asunto B para probar** (`copy-que-convierte.md` §3 y §6) |
 | Preheader | Redactado, ≤ 90 caracteres, **no repite el asunto** |
-| Copy | Redactado, cuerpo completo |
-| CTA | Verbo + destino concreto |
+| Copy | Redactado, cuerpo completo: primer párrafo = hook, un solo mensaje, prueba concreta. Pasa el test de mediocridad (`copy-que-convierte.md` §7) |
+| CTA | Verbo + destino concreto + lo que pasa después ("Quiero que me llamen → te escribe una asesora en 24 h") |
 | Volumen | Conteo real del segmento |
 
 Ninguna celda queda descrita "en general". El asunto es el asunto.
 
-**Proyectos sugeridos por segmento** (si hay inventario y eje de presupuesto): elegí 2 o 3 proyectos
+**Proyectos sugeridos por segmento** (si hay inventario y eje de presupuesto): elige 2 o 3 proyectos
 cuya ciudad coincida con la de interés del segmento y cuyo precio desde quede dentro del rango de
 presupuesto. Van en el copy con nombre, ciudad, precio desde (en su moneda) y la fecha de corte del
 precio; nunca tasa, cuota ni plazo. Sin proyecto que encaje, el correo no fuerza uno: va el ángulo
@@ -168,7 +178,7 @@ correo la responde (Plan o Proof), con la prueba concreta, sin prometer aprobaci
 
 ### Fase 5b — Criterio de paso a comercial
 
-Por cada segmento activo, definí la señal que convierte a un candidato en "listo para comercial" y
+Por cada segmento activo, define la señal que convierte a un candidato en "listo para comercial" y
 qué pasa después:
 
 | Señal | Ejemplo | Qué pasa |
@@ -182,10 +192,10 @@ no la configura. Los umbrales son heurística propia, ajustable con la gerencia.
 
 ### Fase 6 — Plan de impacto y autovalidación
 
-Cerrá con: a qué segmentos se ataca, a cuáles **no y por qué**, el volumen total contra el techo,
+Cierra con: a qué segmentos se ataca, a cuáles **no y por qué**, el volumen total contra el techo,
 y los campos que faltaron para clasificar con a quién pedírselos.
 
-Corré el checklist de abajo. Si algo falla, corregilo antes de emitir — no hay segunda pasada.
+Corre el checklist de abajo. Si algo falla, corrígelo antes de emitir — no hay segunda pasada.
 
 ### Checklist de autovalidación (Fase 6)
 
@@ -230,11 +240,13 @@ Si una se rompe, el entregable no sale.
    teléfonos ni documentos. Si el input trae PII, el skill **para**, lo dice y pide el export
    agregado. No la procesa "con cuidado": no la procesa.
 2. **Nunca accede a Zoho ni simula hacerlo.** Todo entra pegado como tabla.
-3. **Ningún segmento sin conteo.** Sin conteo, la fila sale `⛔ sin conteo` y no recibe volumen.
+3. **Ningún conteo inventado.** Sin conteo, la fila sale con la regla de filtro y "Conteo (lo pone
+   Zoho)"; el volumen se decide en Zoho con la regla del techo, nunca en el skill.
 4. **Nunca supera el techo de deliverability** de la Fase 4. Si el plan no cabe, se recorta el plan;
    nunca se sube el techo.
 5. **Tier 3 (+180 días sin abrir) nunca recibe campaña.** Va a re-permiso o a Meta.
-6. **Cero placeholders en copy.** Dato que falta → `⛔ INPUT REQUERIDO: {qué} → pedir a: {quién}`.
+6. **Cero placeholders en copy** (salvo el campo de nombre de Zoho Campaigns, y solo si tiene
+   configurado un valor por defecto para quien no tiene nombre). Dato que falta → `⛔ INPUT REQUERIDO: {qué} → pedir a: {quién}`.
    Prohibido: `Hola {nombre}, tenemos {proyecto}`; permitido: el copy final sin ese dato, o la marca
    `⛔ INPUT REQUERIDO`.
 7. **Nunca tasa, cuota, plazo ni cuota inicial** (triggering terms de Reg Z). Nunca prometer
@@ -269,15 +281,20 @@ Aprendizaje del mes anterior: {sí, de reporte-campanas / no disponible}
 ## Bloque D — Plan de impacto
 {a quién sí, a quién no y por qué, volumen vs techo}
 
-## Bloque E — Qué falta
-{campos sin clasificar, a quién pedírselos; segmentos sin proyecto que encaje}
+## Bloque E — Con esto la parrilla mejora (no frena nada)
+{un solo mensaje por persona: conteos de Zoho, inventario, eventos del mes; campos sin clasificar;
+segmentos sin proyecto que encaje}
+
+## Bloque G — Plan de pruebas y bitácora
+{asunto A vs. B por envío, métrica que decide, y la bitácora para pegar el mes siguiente}
 
 ## Bloque F — Criterio de paso a comercial
 {señal → qué pasa, por segmento activo}
 ```
 
 Al entregar se dice: *"Parrilla de {mes} lista para revisión: {n} segmentos activos, {N} envíos
-contra un techo de {N}. Quedan fuera: {segmentos y por qué}."*
+contra un techo de {N} (o: techo por calcular en Zoho con la fórmula del Bloque D). Quedan fuera:
+{segmentos y por qué}."*
 
 ## Skills relacionados
 

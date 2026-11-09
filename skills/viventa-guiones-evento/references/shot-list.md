@@ -33,7 +33,7 @@ VO/línea | Texto en pantalla | Audio | Locación/Prop | Status ✓
 
 El fallo más común no es el hook débil: es la caída **inmediatamente después** del hook.
 
-**Los 3 tipos de hook que Meta reconoce** — elegí de esta lista, no inventes un cuarto:
+**Los 3 tipos de hook que Meta reconoce** — elige de esta lista, no inventes un cuarto:
 1. **Value promise** — promesa de valor directa
 2. **Curiosity / teaser** — gap de curiosidad
 3. **Shock / statistic** — dato o afirmación que rompe expectativa

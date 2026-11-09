@@ -51,15 +51,15 @@ compra ni publica.
 
 ## Workflow
 
-1. **Calculá el margen**: días entre hoy y el evento. Con pauta, menos de 45 días es `margen corto`:
-   decilo arriba y proponé convocar solo por canales propios y del aliado.
-2. **Armá el cronograma inverso** (T = día del evento), ajustado al margen real:
+1. **Calcula el margen**: días entre hoy y el evento. Con pauta, menos de 45 días es `margen corto`:
+   dilo arriba y propón convocar solo por canales propios y del aliado.
+2. **Arma el cronograma inverso** (T = día del evento), ajustado al margen real:
    - T-42 a T-35: acuerdo con el aliado por escrito (qué pone cada uno, uso de marcas, meta, datos que se comparten).
    - T-35: brief de piezas y de pauta (si aplica) → `viventa-brief-requerimiento`.
    - T-28: contenido del taller o agenda del networking listo para revisión → `workshop-designer`.
    - T-21: piezas aprobadas por marca y por el aliado; convocatoria arranca.
    - T-14: QR y link de registro con seguimiento por aliado probados; impresos enviados (si el evento es
-     fuera de Colombia, el envío internacional va antes: preguntá el tiempo de entrega).
+     fuera de Colombia, el envío internacional va antes: pregunta el tiempo de entrega).
    - T-7: confirmación de lugar, presentadores, ensayo y lista de asistentes.
    - T-1: material en sitio, QR impresos verificados, responsables del registro en la puerta.
    - T+2: mensaje a asistentes y registrados que no fueron; leads asignados a comercial.
@@ -72,9 +72,9 @@ compra ni publica.
      contenido político.
    - Punto de activación: permiso del lugar, pieza física con QR, impresión y envío, quién atiende y
      en qué horario, cómo se registra a quien pasa.
-4. **Definí el seguimiento**: link o QR con el código del aliado, meta de registros, quién llama o
+4. **Define el seguimiento**: link o QR con el código del aliado, meta de registros, quién llama o
    escribe en 48 horas, cómo se le cuenta al aliado lo que generó.
-5. **Modo seguimiento**: leé el runbook, marcá lo vencido y lo que vence en 7 días, y devolvé las
+5. **Modo seguimiento**: lee el runbook, marca lo vencido y lo que vence en 7 días, y devuelve las
    tres próximas acciones con responsable.
 
 ## Reglas duras
@@ -107,7 +107,7 @@ Seguimiento: link/QR {código del aliado} · 48 h: {quién} · corte T+14 y T+30
 ```
 
 En modo seguimiento, la salida es corta: vencido, vence en 7 días y las 3 próximas acciones.
-Al terminar, decí: *"Runbook en `<ruta>`. Lo próximo: {acción} ({responsable}, {fecha})."*
+Al terminar, di: *"Runbook en `<ruta>`. Lo próximo: {acción} ({responsable}, {fecha})."*
 
 ## Skills relacionados
 

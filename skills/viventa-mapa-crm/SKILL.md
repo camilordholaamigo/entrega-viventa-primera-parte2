@@ -51,17 +51,17 @@ y el impacto**, nunca "revisen el CRM".
 ## Workflow
 
 ### Modo consulta
-1. Buscá en el mapa por proceso, módulo, campo o plantilla. Respondé con la ficha y la fecha en que se
-   verificó por última vez. Si tiene más de 90 días o está `sin verificar`, decilo.
+1. Busca en el mapa por proceso, módulo, campo o plantilla. Responde con la ficha y la fecha en que se
+   verificó por última vez. Si tiene más de 90 días o está `sin verificar`, dilo.
 
 ### Modo registrar
-1. Armá o actualizá la ficha de la automatización (ver Output) con lo que el usuario pegó.
-2. Agregá la línea a la bitácora: fecha, quién, qué cambió, antes → después, motivo, registro de prueba.
-3. Revisá dependencias: si el cambio toca un campo, listá las plantillas, flujos y reportes del mapa
-   que usan ese campo y marcalos `revisar por cambio del {fecha}`.
+1. Arma o actualiza la ficha de la automatización (ver Output) con lo que el usuario pegó.
+2. Agrega la línea a la bitácora: fecha, quién, qué cambió, antes → después, motivo, registro de prueba.
+3. Revisa dependencias: si el cambio toca un campo, lista las plantillas, flujos y reportes del mapa
+   que usan ese campo y márcalos `revisar por cambio del {fecha}`.
 
 ### Modo diagnosticar ("no se disparó")
-Revisá, en este orden, con el historial del registro que falló:
+Revisa, en este orden, con el historial del registro que falló:
 1. **Disparador**: ¿la regla corre al crear, al editar o al cambiar un campo específico? ¿El registro
    pasó por ese evento después de que la regla existía?
 2. **Criterio**: ¿el registro cumplía cada condición en el momento del evento (campo vacío, valor
@@ -69,13 +69,13 @@ Revisá, en este orden, con el historial del registro que falló:
 3. **Acción**: ¿la acción existe y está activa? ¿Usa un campo o una plantilla que cambió?
 4. **Ejecución**: ¿el registro de ejecución de la regla muestra error o límite alcanzado?
 5. **Permisos**: ¿el usuario que lo dispara tiene permiso sobre el módulo destino?
-Entregá la causa más probable con la evidencia, lo que no se pudo verificar y el arreglo.
+Entrega la causa más probable con la evidencia, lo que no se pudo verificar y el arreglo.
 
 ### Modo pedir a tecnología
-1. Redactá la solicitud con: qué se necesita (cambio o permiso exacto, con nombre del módulo, campo,
+1. Redacta la solicitud con: qué se necesita (cambio o permiso exacto, con nombre del módulo, campo,
    regla o perfil), por qué (proceso afectado y evidencia: IDs de registros, casos), impacto si no se
    hace (en casos o leads por semana, si se sabe), urgencia y quién valida que quedó.
-2. Anotá la solicitud en el mapa como `pendiente con tecnología desde {fecha}`.
+2. Anota la solicitud en el mapa como `pendiente con tecnología desde {fecha}`.
 
 ## Reglas duras
 
@@ -109,7 +109,7 @@ MAPA DE AUTOMATIZACIONES DE MERCADEO EN ZOHO — actualizado {fecha}
 ```
 
 En modo diagnosticar o pedir, además se entrega el texto (diagnóstico o solicitud) en la conversación,
-listo para pegar en el correo o el ticket. Al terminar, decí: *"Mapa actualizado en `<ruta>` ({qué
+listo para pegar en el correo o el ticket. Al terminar, di: *"Mapa actualizado en `<ruta>` ({qué
 cambió}). {Solicitud redactada, pendiente de que la envíes | Sin pendientes nuevos}."*
 
 ## Skills relacionados

@@ -48,9 +48,9 @@ skill quita trabajo repetitivo; no resuelve el pago y no se presenta como si lo 
 
 | Campo | De dónde sale | Si falta, preguntar |
 |---|---|---|
-| Modo: `parrilla` · `reactivacion` · `resultados` | El pedido del usuario | *"¿Qué necesitás: la parrilla del mes, un correo de reactivación o el correo de resultados?"* Uno solo por corrida |
+| Modo: `parrilla` · `reactivacion` · `resultados` | El pedido del usuario | *"¿Qué necesitas: la parrilla del mes, un correo de reactivación o el correo de resultados?"* Uno solo por corrida |
 | Nombre y rubro del negocio aliado | El usuario o la ficha del aliado | *"¿Cómo se llama el negocio aliado y a qué se dedica?"* — **bloqueante en los tres modos** (Paso 1) |
-| Documento vigente del programa (incentivos, montos, momento de pago) | Comercial / coordinación del programa | *"¿Tenés el documento vigente de Referidores Pro?"* — si no, se sigue con montos marcados (Paso 2) |
+| Documento vigente del programa (incentivos, montos, momento de pago) | Comercial / coordinación del programa | *"¿Tienes el documento vigente de Referidores Pro?"* — si no, se sigue con montos marcados (Paso 2) |
 | **Parrilla:** ciudad y país del negocio | El usuario | *"¿En qué ciudad y país está el negocio?"* — bloqueante: sin esto no se localiza el contenido |
 | **Parrilla:** público del negocio | El usuario | *"¿Quiénes son sus clientes?"* — si no lo sabe, se usa el ICP de `references/contexto-viventa.md` y se declara el supuesto |
 | **Parrilla:** mes y frecuencia | El usuario | *"¿Para qué mes y cuántas piezas?"* — si no responde, mes siguiente y 4 piezas, declarado |
@@ -61,9 +61,9 @@ skill quita trabajo repetitivo; no resuelve el pago y no se presenta como si lo 
 
 ## Workflow
 
-1. **Chequeá el modo y el negocio.** Si el pedido mezcla modos, preguntá cuál va primero: cada
+1. **Chequea el modo y el negocio.** Si el pedido mezcla modos, pregunta cuál va primero: cada
    modo tiene destinatario y momento distintos (ver `references/modos-y-disparadores.md`). Si
-   falta nombre o rubro del aliado, o un dato marcado bloqueante del modo, detenete y devolvé solo:
+   falta nombre o rubro del aliado, o un dato marcado bloqueante del modo, detente y devuelve solo:
 
    ```
    ⛔ NO SE PUEDE GENERAR — {modo}
@@ -72,7 +72,7 @@ skill quita trabajo repetitivo; no resuelve el pago y no se presenta como si lo 
    Motivo: sin el negocio concreto solo sale una plantilla intercambiable.
    ```
 
-2. **Chequeá el documento del programa, antes de escribir nada.**
+2. **Chequea el documento del programa, antes de escribir nada.**
    - Está en el input → los montos se toman **solo** de ahí, citando la sección.
    - No está → la primera línea del entregable es:
      ```
@@ -83,7 +83,7 @@ skill quita trabajo repetitivo; no resuelve el pago y no se presenta como si lo 
      y todo monto queda `[falta: documento del programa]`. Los valores que circulan en el
      diagnóstico son recomendación, no política: no se usan "por esta vez".
 
-3. **Ejecutá el modo pedido.**
+3. **Ejecuta el modo pedido.**
 
    **`parrilla`** — una fila por pieza: fecha · formato · ángulo · copy completo · CTA · notas.
    - Ángulos en este orden, uno por pieza, y se repite el ciclo si hay más de 4 (con menos de 4 se
@@ -91,22 +91,22 @@ skill quita trabajo repetitivo; no resuelve el pago y no se presenta como si lo 
      *sus* clientes) · **Prueba** (un dato de `references/cifras-canonicas.md`; si no está ahí, no
      va) · **Objeción** (uno de los tres miedos de la categoría, respondido con un hecho
      verificable) · **Invitación directa** (con disclosure de comisión).
-   - Escribí desde el negocio aliado, localizado a su ciudad y público. Prueba antes de emitir:
-     *¿esto lo escribiría el dueño del negocio?* Si suena a comunicado de Viventa, reescribilo.
+   - Escribe desde el negocio aliado, localizado a su ciudad y público. Prueba antes de emitir:
+     *¿esto lo escribiría el dueño del negocio?* Si suena a comunicado de Viventa, reescríbelo.
    - "Raíces / volver a casa" solo como emoción de fondo, nunca como ángulo principal.
 
-   **`reactivacion`** — elegí el correo por días sin referir:
+   **`reactivacion`** — elige el correo por días sin referir:
 
    | Días sin referir | Correo | Ángulo |
    |---|---|---|
-   | < 30 | ninguno | No toca reactivar: decilo y no redactes |
+   | < 30 | ninguno | No toca reactivar: dilo y no redactes |
    | 30-59 | R1 | Recordatorio útil para el aliado. Sin reproche |
    | 60-89 | R2 | Qué lograron otros aliados — solo con datos del input o `[dato: CRM]` |
    | ≥ 90 | R3 | Pregunta directa: qué lo frenó. No vende |
 
    Los límites caen en el tramo siguiente (30 → R1, 60 → R2, 90 → R3). Si el correo que toca ya
-   se le mandó, o pasaron menos de 30 días desde el último, no redactes y decí cuándo corresponde.
-   Si ya recibió R3, **sale de la secuencia**: entregá solo la marca `→ conversación humana` y no
+   se le mandó, o pasaron menos de 30 días desde el último, no redactes y di cuándo corresponde.
+   Si ya recibió R3, **sale de la secuencia**: entrega solo la marca `→ conversación humana` y no
    redactes un R4. R3 acepta que la respuesta sea un reclamo por pagos: el correo no se defiende
    ni promete fechas de pago.
 
@@ -117,7 +117,7 @@ skill quita trabajo repetitivo; no resuelve el pago y no se presenta como si lo 
    chat. "Qué sigue" describe los estados tal cual ("en proceso" es "en proceso"): no se anticipa
    desembolso ni comisión.
 
-4. **Autovalidá** contra la lista de abajo y corregí antes de emitir.
+4. **Autovalida** contra la lista de abajo y corrige antes de emitir.
    - Montos: cero cifras de incentivo sin documento; ninguna "deducida" del diagnóstico ni de una
      corrida anterior; el aviso del Paso 2 en la primera línea si aplica.
    - Datos: cero conteos estimados; cero nombres de personas referidas; nada "en proceso"
@@ -127,7 +127,7 @@ skill quita trabajo repetitivo; no resuelve el pago y no se presenta como si lo 
    - Legal: cero tasa, cuota, plazo o cuota inicial; cero promesa de aprobación; el aliado nunca
      suena a asesor financiero.
 
-5. **Entregá** el documento (ver Output esperado) y cerrá con lo que falta pedir y a quién.
+5. **Entrega** el documento (ver Output esperado) y cierra con lo que falta pedir y a quién.
 
 ## Reglas duras
 
@@ -167,7 +167,7 @@ mostrado también en la conversación:
 ```
 
 Si el Paso 1 detiene la corrida, no se escribe archivo: se devuelve solo el bloque `⛔`. Al
-terminar, decile al usuario: *"Quedó en {ruta}. Revisalo antes de mandarlo o publicarlo; faltan
+terminar, dile al usuario: *"Quedó en {ruta}. Revísalo antes de mandarlo o publicarlo; faltan
 {n} datos, listados al final."*
 
 ## Skills relacionados

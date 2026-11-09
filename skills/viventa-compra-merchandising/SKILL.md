@@ -48,16 +48,16 @@ inversión significativa la aprueba la dirección financiera.
 
 ## Workflow
 
-1. **Normalizá cada cotización** a la misma cantidad: precio unitario, impuestos, envío (al lugar del
+1. **Normaliza cada cotización** a la misma cantidad: precio unitario, impuestos, envío (al lugar del
    evento si es en el exterior), costo de muestra, anticipo, tiempo de producción y de entrega,
    validez de la oferta. Lo que la cotización no dice va `no informado`, no se supone.
-2. **Calculá el costo total puesto en sitio** por proveedor y la fecha estimada de llegada contra la
+2. **Calcula el costo total puesto en sitio** por proveedor y la fecha estimada de llegada contra la
    fecha en que se necesita. Si no llega a tiempo, el proveedor queda `fuera de plazo` aunque sea el más barato.
-3. **Registrá las muestras**: pedida, recibida, calificada (con la nota y el comentario de quien la vio).
-4. **Recomendá** con un criterio explícito: primero que llegue a tiempo, luego calidad de muestra
-   (mínimo 4 de 5), luego costo total. Si ninguno cumple, decilo y proponé qué pedir (otra cantidad,
+3. **Registra las muestras**: pedida, recibida, calificada (con la nota y el comentario de quien la vio).
+4. **Recomienda** con un criterio explícito: primero que llegue a tiempo, luego calidad de muestra
+   (mínimo 4 de 5), luego costo total. Si ninguno cumple, dilo y propón qué pedir (otra cantidad,
    otra fecha, otro proveedor).
-5. **Si el total supera el umbral**, redactá el memo de aprobación para la dirección financiera.
+5. **Si el total supera el umbral**, redacta el memo de aprobación para la dirección financiera.
 
 ## Reglas duras
 
@@ -85,7 +85,7 @@ Qué se compra y para qué · Monto total · Presupuesto aprobado · Alternativa
 Recomendación · Fecha límite para decidir (validez de la oferta / plazo de producción)
 ```
 
-Al terminar, decí: *"Comparativo en `<ruta>`. Recomiendo {proveedor}. {Memo listo para la dirección
+Al terminar, di: *"Comparativo en `<ruta>`. Recomiendo {proveedor}. {Memo listo para la dirección
 financiera | No requiere aprobación financiera}."*
 
 ## Skills relacionados

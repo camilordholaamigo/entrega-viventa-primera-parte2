@@ -14,12 +14,12 @@ Markdown plano, copiable a Google Docs, Figma, Canva y CapCut. Nada de formatos 
 
 ## Antes de empezar — leer en voz alta
 "{Nombre}, quiero contar tu historia bien contada, no un comercial. Voy a grabar para no
-perderme nada, y vos vas a poder aprobar antes de que publiquemos. Si algo no querés que
-salga, me lo decís y sale. Y si algo del proceso estuvo mal, decímelo — eso nos sirve más
+perderme nada, y tú vas a poder aprobar antes de que publiquemos. Si algo no quieres que
+salga, me lo dices y sale. Y si algo del proceso estuvo mal, decímelo — eso nos sirve más
 que lo bueno. ¿Te parece?"
 
 ## ACTO 1 — ANTES (el miedo que lo paralizaba) · ~40%
-1. Contame cómo era tu situación antes de contactar a Viventa. ¿Dónde vivías, qué hacías?
+1. Cuéntame cómo era tu situación antes de contactar a Viventa. ¿Dónde vivías, qué hacías?
 2. ¿Cuánto tiempo llevabas pensando en comprar en Colombia antes de dar el paso?
 3. ¿Por qué no lo habías hecho todavía?   ← pregunta madre, no la sueltes
 4. ¿Hubo algo puntual que te frenó? ¿Alguien que te dijo algo, algo que le pasó a un conocido?
@@ -27,23 +27,23 @@ que lo bueno. ¿Te parece?"
 6. ¿Con quién hablaste de esto antes de decidirte? ¿Qué te dijeron?
 
 ## ACTO 2 — DURANTE (qué lo destrabó) · ~40%
-7. ¿Cómo llegaste a Viventa? Contame ese momento.
+7. ¿Cómo llegaste a Viventa? Cuéntame ese momento.
 8. ¿Qué fue lo primero que te hizo pensar "esto sí puede ser"?
 9. ¿En qué momento del proceso dejaste de tener miedo? ¿Fue de golpe o de a poquito?
 10. ¿Hubo algún momento en que estuviste a punto de echarte para atrás? ¿Qué pasó ahí?
-11. ¿Qué hizo la persona que te acompañó que vos no esperabas?
+11. ¿Qué hizo la persona que te acompañó que tú no esperabas?
 12. ¿Qué fue lo que peor funcionó?
 
 ## ACTO 3 — HOY · ~20%
-13. ¿Cómo te sentís hoy con esa decisión?
+13. ¿Cómo te sientes hoy con esa decisión?
 14. ¿Qué es distinto en tu vida hoy que no era antes?
-15. ¿Qué le dirías a alguien que está donde estabas vos hace ___ años?
+15. ¿Qué le dirías a alguien que está donde estabas tú hace ___ años?
 16. ¿Volverías a comprar? / ¿Ya estás pensando en la segunda?
 
 ## Cierre — CONSENTIMIENTO (obligatorio, en caliente)
 "Última cosa. ¿Estás de acuerdo en que usemos lo que me contaste —tu nombre de pila, tu ciudad
 y una foto tuya— en nuestras redes y en material de Viventa? Te mando por WhatsApp un textico
-corto para que me lo devolvás con un 'sí, autorizo'. Y si en algún momento querés que lo
+corto para que me lo devuelvas con un 'sí, autorizo'. Y si en algún momento quieres que lo
 bajemos, lo bajamos."
 
 **Registro:** ⬜ nombre completo ⬜ solo nombre de pila ⬜ solo ciudad, sin nombre
@@ -55,16 +55,16 @@ bajemos, lo bajamos."
 
 | Si el cliente responde… | Repregunta |
 |---|---|
-| *"Muy buena la experiencia, todos muy amables"* | "Me imagino que sí. Pero **antes** de que fuera buena — ¿cómo estabas vos? ¿Qué pensabas?" |
-| *"Ellos son muy profesionales"* | "¿Qué hicieron que te hizo pensar eso? ¿Te acordás de algo puntual?" |
+| *"Muy buena la experiencia, todos muy amables"* | "Me imagino que sí. Pero **antes** de que fuera buena — ¿cómo estabas tú? ¿Qué pensabas?" |
+| *"Ellos son muy profesionales"* | "¿Qué hicieron que te hizo pensar eso? ¿Te acuerdas de algo puntual?" |
 | *"Estaba un poco nervioso"* | "¿Nervioso de qué exactamente? ¿Qué te imaginabas que podía salir mal?" |
-| *"Uno siempre desconfía"* | "¿Te pasó algo antes, o le pasó a alguien que conocés?" |
-| *"Me ayudaron mucho"* | "Contame un momento concreto donde sentiste eso. ¿Qué día, qué pasó?" |
+| *"Uno siempre desconfía"* | "¿Te pasó algo antes, o le pasó a alguien que conoces?" |
+| *"Me ayudaron mucho"* | "Cuéntame un momento concreto donde sentiste eso. ¿Qué día, qué pasó?" |
 | *"Estoy contento"* | "¿Contento cómo? ¿Qué es distinto hoy en tu vida que no era antes?" |
-| *"Fue rápido"* | "¿Rápido comparado con qué esperabas vos?" |
-| Silencio / duda | **No rellenar. Contá hasta cinco.** |
+| *"Fue rápido"* | "¿Rápido comparado con qué esperabas tú?" |
+| Silencio / duda | **No rellenar. Cuenta hasta cinco.** |
 
-Laddering: máximo 2 "¿por qué?" seguidos; alterná con "contame más de eso", "¿y qué pasó después?".
+Laddering: máximo 2 "¿por qué?" seguidos; alterna con "cuéntame más de eso", "¿y qué pasó después?".
 
 ---
 
@@ -166,7 +166,7 @@ Ningún recorte afirma más que el caso.
 ```markdown
 **FICHA COMERCIAL — {Nombre} · {origen} → {destino} · {año}**
 
-| Si el lead dice… | Contale que… | Cita exacta para leerle |
+| Si el lead dice… | Cuéntale que… | Cita exacta para leerle |
 |---|---|---|
 | "¿y si me estafan?" | | *"..."* |
 | "es que yo no estoy allá" | | *"..."* |

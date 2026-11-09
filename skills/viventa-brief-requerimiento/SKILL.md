@@ -47,7 +47,7 @@ o MODO B y jamás un híbrido, y no compromete fechas ni prioridades del equipo.
 
 | Campo | De dónde sale | Si falta, preguntar |
 |---|---|---|
-| Texto de la solicitud (WhatsApp, correo, nota, transcripción) | El usuario lo pega | *"Pegame la solicitud tal como te llegó."* Sin texto, para |
+| Texto de la solicitud (WhatsApp, correo, nota, transcripción) | El usuario lo pega | *"Pégame la solicitud tal como te llegó."* Sin texto, para |
 | Quién la envía y su área | La solicitud o el usuario | No se pregunta: `[FALTA — no bloquea]` en la cabecera y pregunta opcional en MODO B |
 | Fecha en que se recibió | La solicitud | No se pregunta: fecha de hoy marcada `[SUPUESTO: fecha de ejecución]` |
 | Piezas o campañas previas equivalentes | El usuario, si las cita | No se pregunta: sin precedente citable no se puede asumir ningún P0 (Paso 4) |
@@ -64,20 +64,20 @@ justamente, la forma de preguntar).
 
 1. ¿Es un evento nuevo? Si sí, responde *"Esto es evento: va por `viventa-brief-evento`"* y para.
    No calcules metas por ejecutiva ni la regla de 45 días. Si es una pieza para un evento con brief,
-   seguí y tomá fecha, dirección, ciudad y consultoras de ese brief.
+   sigue y toma fecha, dirección, ciudad y consultoras de ese brief.
 2. **¿Campaña 360 o pieza?** Si la solicitud dice "campaña" pero describe una sola pieza ("un video y
-   ya"), tratala como pieza y decilo en el brief. Si no se puede saber, es una pregunta bloqueante
+   ya"), trátala como pieza y dilo en el brief. Si no se puede saber, es una pregunta bloqueante
    de MODO B: *"¿Necesitas una campaña en varios canales o una pieza para un canal? Por ejemplo: «un
    reel para Instagram» o «campaña en Meta, correo y WhatsApp»."*
-3. Detectá un solo tipo: campaña de ads · material comercial y presentaciones · landing · impreso.
+3. Detecta un solo tipo: campaña de ads · material comercial y presentaciones · landing · impreso.
    Si la solicitud mezcla dos, el tipo es el de la pieza principal y la otra va como entregable.
-4. Cargá **solo** el bloque de ese tipo de `references/campos-por-tipo.md`.
-5. Extraé literal qué pide, para quién, para cuándo, dónde se usa y con qué números. Las citas van
+4. Carga **solo** el bloque de ese tipo de `references/campos-por-tipo.md`.
+5. Extrae literal qué pide, para quién, para cuándo, dónde se usa y con qué números. Las citas van
    entre comillas. Lo que no está escrito no existe.
 
 ### Paso 2 — Test del objetivo (corre siempre)
 
-Pasá la frase que el solicitante ofrece como objetivo por 4 preguntas:
+Pasa la frase que el solicitante ofrece como objetivo por 4 preguntas:
 
 | # | Pregunta | Si es "no" |
 |---|---|---|
@@ -120,7 +120,7 @@ Están los cinco                                → MODO A; los P1 faltantes van
 
 ### Paso 5A — MODO A: el brief
 
-1. Llená la plantilla de MODO A del Output esperado. Borrá lo que no cambia lo que diseño va a hacer.
+1. Llena la plantilla de MODO A del Output esperado. Borra lo que no cambia lo que diseño va a hacer.
    Nada de contexto de mercado. Sin placeholders: todo el texto es copiable.
 2. "Traducción a negocio": cada conversión en su línea, con su nombre (desembolso / Vive Casas
    [cifra interna]; pago de Servicio Viventa [cifra interna] × USD 480), redondeada hacia abajo y marcada `[SUPUESTO]`.
@@ -140,16 +140,16 @@ Están los cinco                                → MODO A; los P1 faltantes van
 3. Cada pregunta sale de lo que falta en **esta** solicitud y trae un ejemplo de respuesta válida del
    mundo Viventa ("que 80 personas agenden asesoría antes del 15 de septiembre"). Nada de "¿cuál es
    tu público objetivo? ¿cuál es tu presupuesto?".
-4. Máximo 5 bloqueantes + máximo 3 opcionales. Si salen más, elegí los 5 que de verdad impiden
-   arrancar y nombrá el resto en una sola línea.
+4. Máximo 5 bloqueantes + máximo 3 opcionales. Si salen más, elige los 5 que de verdad impiden
+   arrancar y nombra el resto en una sola línea.
 
 ### Paso 6 — Chequeo
 
 1. La primera línea declara MODO A o MODO B.
 2. MODO A ≤ ~50 líneas; MODO B ≤ 25.
 3. Cada afirmación está en la solicitud, lleva `[SUPUESTO: base]` o lleva `[FALTA]`.
-4. Buscá tasa, cuota, plazo, "te aprobamos", fechas comprometidas sin "la confirma diseño". Si
-   aparecen, reescribí.
+4. Busca tasa, cuota, plazo, "te aprobamos", fechas comprometidas sin "la confirma diseño". Si
+   aparecen, reescribe.
 5. Cada dato de la sección 8 tiene fuente y fecha de corte, o `[FALTA]`.
 6. Los `[⚠ no verificado]` de plazos, orden de aprobadores y adopción del formato siguen visibles.
 

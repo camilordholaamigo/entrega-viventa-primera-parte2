@@ -5,11 +5,11 @@ description: >-
   4 gates de evidencia, proyección con curva back-loaded y máximo 3 acciones reenviables a la
   agencia de Ads) y cierre (ficha post-mortem en cortes T+0/T+30/T+90/T+180 con veredicto repetir,
   ajustar o no repetir). No ejecuta nada y "esperar" es una recomendación válida. USA cuando: "cómo
-  van los eventos", "el CPL de Alicante se disparó, ¿toca hacer algo?", "sacá el cierre del evento
+  van los eventos", "el CPL de Alicante se disparó, ¿toca hacer algo?", "saca el cierre del evento
   de Tampa", "¿repetimos esa plaza?". Es por evento: viventa-reporte-campanas consolida todo el
   área y viventa-forecast-pauta proyecta el gasto del mes.
 metadata:
-  version: "1.1.0"
+  version: "1.2.0"
   domain: "analyze"
   client: "viventa"
   blueprint: "marketing"
@@ -26,13 +26,23 @@ la cuenta de Meta la opera una agencia externa.
 
 ## Cuándo usar
 
-- Explícito: "cómo van los eventos", "revisá las campañas de los eventos activos", "el CPL de
-  Alicante se disparó, ¿toca hacer algo?", "hacé el monitor diario de eventos", "sacá el cierre del
+- Explícito: "cómo van los eventos", "revisa las campañas de los eventos activos", "el CPL de
+  Alicante se disparó, ¿toca hacer algo?", "haz el monitor diario de eventos", "saca el cierre del
   evento de Tampa", "necesito el post-mortem del evento", "¿el evento sí se pagó o no?",
   "¿repetimos esa plaza?".
 - Implícito: llega el export de Meta Ads de un evento al aire; o se cumplen 0, 30, 90 o 180 días de
   un evento ya hecho.
 - Cadencia: diario todas las mañanas con pauta al aire; cierre en T+0, T+30, T+90 y T+180.
+
+### Eventos virtuales y varios eventos (v1.2, noviembre de 2026)
+
+- **Virtual:** el embudo no termina en "asistió al venue" sino en **se conectó**. Las etapas son
+  registros → recibieron el enlace → se conectaron en vivo → se quedaron más de la mitad del evento
+  (si la plataforma lo reporta) → pidieron asesoría. La asistencia virtual típica es más baja que la
+  presencial respecto a los registros; no se compara un virtual contra el histórico de un
+  presencial: se dice `sin histórico comparable` hasta tener dos virtuales propios.
+- **Varios eventos:** una tabla con una fila por evento y el semáforo de cada uno, y debajo solo el
+  detalle de los que están en ámbar o rojo. Ver `references/virtual-y-lotes.md`.
 
 ## Cuándo NO usar
 
@@ -59,7 +69,7 @@ la cuenta de Meta la opera una agencia externa.
 | Fecha, ciudad y dirección del evento | Brief del evento | Sin dirección: advertencia `⚠ sin dirección — fricción #1 del VOC` en cabecera |
 | Meta de leads y presupuesto de pauta aprobado | Brief del evento | *"¿Cuál es la meta de leads y el presupuesto aprobado de {evento}?"* Sin meta no hay % de avance ni semáforo de volumen |
 | Fecha de inicio de la pauta | Agencia de Ads | Sin ella no se proyecta (no hay % de calendario) |
-| Export de Meta Ads: leads, gasto, impresiones **por día y por ad set**, con nombre exacto del ad set | Agencia de Ads | *"Pasame el export diario por ad set, no el acumulado."* Solo acumulado: ninguna acción se emite (gate 2) |
+| Export de Meta Ads: leads, gasto, impresiones **por día y por ad set**, con nombre exacto del ad set | Agencia de Ads | *"Pásame el export diario por ad set, no el acumulado."* Solo acumulado: ninguna acción se emite (gate 2) |
 | Registros de Zoho con país de origen | Zoho | Columna `% USA` = `[n/d]`, sin semáforo de composición |
 | Fecha del último cambio significativo por ad set | Agencia de Ads | Se asume ad set en aprendizaje: no se recomienda editarlo |
 
@@ -77,20 +87,20 @@ la cuenta de Meta la opera una agencia externa.
 
 ### Paso 1 — Identificar modo y corte
 
-1. Leé la invocación. Sin modo → **diario**. "Cierre" sin corte → preguntar el corte y esperar.
-2. Cargá solo la referencia del modo: diario → `references/umbrales-diario.md`; cierre →
+1. Lee la invocación. Sin modo → **diario**. "Cierre" sin corte → preguntar el corte y esperar.
+2. Carga solo la referencia del modo: diario → `references/umbrales-diario.md`; cierre →
    `references/cortes-cierre.md`.
-3. Listá los eventos en alcance: diario, todos los activos con pauta al aire; cierre, uno solo.
+3. Lista los eventos en alcance: diario, todos los activos con pauta al aire; cierre, uno solo.
 
 ### Paso 2 — Validar inputs y declarar faltantes
 
-1. Recorré las tablas de Input. Por cada faltante, aplicá su columna "si falta" **antes** de
+1. Recorre las tablas de Input. Por cada faltante, aplica su columna "si falta" **antes** de
    calcular.
-2. Escribí la lista de faltantes con a quién pedírselos; va al pie del output.
+2. Escribe la lista de faltantes con a quién pedírselos; va al pie del output.
 
 ### Paso 3 — Modo diario: los 4 gates en cascada
 
-Aplicá `references/umbrales-diario.md` en orden. Una alerta existe solo si pasa los cuatro; lo que
+Aplica `references/umbrales-diario.md` en orden. Una alerta existe solo si pasa los cuatro; lo que
 muere en un gate va a **NO SE REPORTA HOY** con su motivo.
 
 1. **Muestra** — n ≥ 30 y desviación > `2/√n`. Si no: `muestra insuficiente`, sin juicio.
@@ -106,36 +116,36 @@ muere en un gate va a **NO SE REPORTA HOY** con su motivo.
 
 ### Paso 4 — Modo diario: proyección y semáforos
 
-1. Proyectá con la curva back-loaded: `leads_proyectados = leads_actuales / %_curva_esperada_hoy`.
+1. Proyecta con la curva back-loaded: `leads_proyectados = leads_actuales / %_curva_esperada_hoy`.
    Nunca pacing lineal.
 2. Confianza: **alta** (n ≥ 100 y ≥ 50 % del calendario) → punto · **media** (n ≥ 30) → banda
    ± 20 % · **insuficiente** (n < 30 o < 20 % del calendario) → no se proyecta, estado ⚪.
-3. Pintá tres semáforos independientes con las tablas de la referencia: volumen, CPL, composición.
+3. Pinta tres semáforos independientes con las tablas de la referencia: volumen, CPL, composición.
    Sin CPL objetivo cargado, el de CPL es ⚪ `sin objetivo` y no genera acciones.
    Nunca se promedian. Con composición 🔴, ninguna acción de volumen puede ser prioridad ALTA.
 4. Si un evento está 🟢 en los tres, su recomendación es **no tocar**, y se escribe.
 
 ### Paso 5 — Modo cierre: cortes y veredicto
 
-1. Declará el corte en cabecera y qué cortes previos existen.
-2. Llená los bloques sin mezclarlos: A adquisición (cerrada en T+0) · B conversión (madura hasta
+1. Declara el corte en cabecera y qué cortes previos existen.
+2. Llena los bloques sin mezclarlos: A adquisición (cerrada en T+0) · B conversión (madura hasta
    T+180) · C eficiencia económica (solo desde T+90).
 3. En T+0 y T+30 **no hay veredicto** y están bloqueadas las palabras *fracaso, no funcionó,
    descartar, no rentable*. Si el negocio va bajo meta: *"resultado de negocio parcial — la ventana
    de conversión de este evento cierra el {fecha T+90}"*.
-4. En T+90 y T+180 aplicá la matriz de veredicto de `references/cortes-cierre.md`. Un valor justo en
+4. En T+90 y T+180 aplica la matriz de veredicto de `references/cortes-cierre.md`. Un valor justo en
    el límite cae en la banda superior (0.6x → 0.6-1.0x). Si la combinación de retorno y proyección
    no está en la matriz: `veredicto no emitible — combinación fuera de matriz` y se explica cuál es.
 5. El veredicto nombra siempre la capa que falló: adquisición, conversión o estructura de costo.
 6. Veredicto de plaza solo con ≥ 2 eventos de la misma ciudad con T+90 completo; con uno solo,
-   `veredicto de plaza no emitible`. Antes de un 🔴 de plaza, aplicá la salvaguarda de 2x de la
+   `veredicto de plaza no emitible`. Antes de un 🔴 de plaza, aplica la salvaguarda de 2x de la
    referencia.
-7. Contrastá el costo por SV contra el CAC fully-loaded de eventos ([cifra interna] por cierre) y agendá el
+7. Contrasta el costo por SV contra el CAC fully-loaded de eventos ([cifra interna] por cierre) y agenda el
    recierre T+180 con fecha.
 
 ### Paso 6 — Las acciones (los dos modos)
 
-1. Máximo 3, priorizadas ALTA / MEDIA / BAJA. Si hay más problemas, decí cuáles quedaron fuera.
+1. Máximo 3, priorizadas ALTA / MEDIA / BAJA. Si hay más problemas, di cuáles quedaron fuera.
 2. Cada acción lleva 5 campos: ad set o campaña con nombre exacto · variable que cambia · de X a Y
    con número · a quién se le pide (agencia de Ads, gerencia, producción, consultoras) · fecha de
    verificación. Si falta uno, en lugar de la acción va la pregunta que falta responder.
@@ -144,10 +154,10 @@ muere en un gate va a **NO SE REPORTA HOY** con su motivo.
 
 ### Paso 7 — Secciones de disciplina y chequeo
 
-1. Escribí **NO SE REPORTA HOY** (diario), **NO SE RECOMIENDA, aunque aparezca tentador** (1-2
+1. Escribe **NO SE REPORTA HOY** (diario), **NO SE RECOMIENDA, aunque aparezca tentador** (1-2
    líneas, los dos modos) y **DATOS QUE FALTAN**.
-2. Revisá: toda cifra con etiqueta; CPL con `$/lead` y CAC con `$/cierre`; ninguna proyección con
-   n < 30; ninguna acción de un solo día; ≤ 3 acciones con 5 campos. Corregí antes de entregar.
+2. Revisa: toda cifra con etiqueta; CPL con `$/lead` y CAC con `$/cierre`; ninguna proyección con
+   n < 30; ninguna acción de un solo día; ≤ 3 acciones con 5 campos. Corrige antes de entregar.
 
 ## Reglas duras
 

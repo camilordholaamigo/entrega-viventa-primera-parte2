@@ -29,10 +29,10 @@ en el régimen general de responsabilidad objetiva.
 Se envía **al terminar la llamada, en caliente**. Sirve como registro la respuesta afirmativa.
 
 > Hola {Nombre}, gracias por el ratico de hoy. Para poder contar tu historia necesito tu
-> autorización. ¿Me confirmás con un "sí, autorizo" que estás de acuerdo con que Viventa use lo
+> autorización. ¿Me confirmas con un "sí, autorizo" que estás de acuerdo con que Viventa use lo
 > que me contaste, junto con {tu nombre de pila / tu nombre completo}, tu ciudad y una foto tuya,
 > en nuestras redes sociales, publicidad y material de Viventa? No hubo ningún pago ni regalo de
-> por medio, y si en cualquier momento querés que lo bajemos, nos escribís y lo bajamos. Confirmame
+> por medio, y si en cualquier momento quieres que lo bajemos, nos escribes y lo bajamos. Confírmame
 > también que sos mayor de edad. Gracias, {Nombre}.
 
 **Debe quedar cubierto:**

@@ -53,28 +53,28 @@ solo si lo tiene o no.
 
 ## Workflow
 
-1. **Fijá las reglas del documento de incentivos**: qué etapa causa el pago (por ejemplo, pago del
+1. **Fija las reglas del documento de incentivos**: qué etapa causa el pago (por ejemplo, pago del
    servicio o desembolso), monto por programa y plazo en días. Escribilas arriba del reporte tal
-   como dice el documento. Si dos documentos dicen distinto, pará y preguntá cuál rige.
-2. **Uní las piezas** por llaves, en este orden: código de referidor → candidato → negocio → tarea de
+   como dice el documento. Si dos documentos dicen distinto, para y pregunta cuál rige.
+2. **Une las piezas** por llaves, en este orden: código de referidor → candidato → negocio → tarea de
    pago → pago. Cada eslabón que no une se anota (es la pista de la causa).
-3. **Determiná el estado de cada referido**:
+3. **Determina el estado de cada referido**:
    `sin convertir` · `causó pago` (llegó a la etapa) · `tarea creada` · `pagado` · `pagado sin confirmar`.
-4. **Calculá el atraso** solo de los que causaron pago y no están pagados: días desde la fecha en que
+4. **Calcula el atraso** solo de los que causaron pago y no están pagados: días desde la fecha en que
    llegó a la etapa menos el plazo del documento.
-5. **Asigná la causa probable** de cada caso atrasado, con la evidencia que la sostiene:
+5. **Asigna la causa probable** de cada caso atrasado, con la evidencia que la sostiene:
    - `sin información de pago` — el referidor no tiene datos de pago cargados.
-   - `automatización no se disparó` — el negocio llegó a la etapa y no existe tarea; anotá si el campo
+   - `automatización no se disparó` — el negocio llegó a la etapa y no existe tarea; anota si el campo
      de referidor estaba vacío al momento del cambio de etapa o si el negocio es anterior a la regla.
    - `referido sin asignar` — el candidato no tiene consultor o la regla de asignación del referidor no existe.
    - `tarea sin ejecutar` — hay tarea, no hay pago: está en finanzas o en aprobación.
    - `vínculo roto` — el referido entró sin código o con otro código; no se puede probar quién refirió.
    Si la evidencia no alcanza, `causa no determinada` con lo que falta para saberlo.
-6. **Asigná acción y responsable** por causa: cargar datos de pago (mercadeo pide al referidor), crear
+6. **Asigna acción y responsable** por causa: cargar datos de pago (mercadeo pide al referidor), crear
    la tarea a mano y reportar la falla (mercadeo + tecnología), crear la regla de asignación
    (comercial), ejecutar el pago (finanzas), decidir el vínculo roto (gerencia).
-7. **Resumí lo sistémico**: causas ordenadas por cantidad de casos. Si una causa se repite tres o más
-   veces, redactá en una línea el arreglo que hay que pedirle a tecnología y pasalo a `viventa-mapa-crm`.
+7. **Resume lo sistémico**: causas ordenadas por cantidad de casos. Si una causa se repite tres o más
+   veces, redacta en una línea el arreglo que hay que pedirle a tecnología y pásalo a `viventa-mapa-crm`.
 
 ## Reglas duras
 
@@ -104,7 +104,7 @@ Lo sistémico
 Sin convertir: {n} referidos (no generan pago todavía).
 ```
 
-Al terminar, decí: *"Conciliación lista en `<ruta>`: {n} casos atrasados, {n} con causa sistémica.
+Al terminar, di: *"Conciliación lista en `<ruta>`: {n} casos atrasados, {n} con causa sistémica.
 Los avisos a los referidores salen con viventa-ciclo-referidor cuando finanzas confirme fecha."*
 
 ## Skills relacionados

@@ -5,7 +5,7 @@ description: >-
   de metas) en 2 páginas: meta contra real por proceso (reactivación, orgánico, pauta, referidos),
   lectura en prosa, hasta 3 hallazgos, 3 alertas y 3 recomendaciones con dueño; en mensual, CPL, CAC y
   conversión por evento y canal. Toda cifra declara fuente, ventana y universo o va a "no emitidas".
-  USA cuando: "cómo vamos contra la meta del mes", "sacá el reporte de campañas de la semana", "cuál
+  USA cuando: "cómo vamos contra la meta del mes", "saca el reporte de campañas de la semana", "cuál
   es el CPL por evento". viventa-monitor-evento sigue un evento.
 metadata:
   version: "1.2.0"
@@ -25,9 +25,9 @@ de IA son compartidas y se quedan sin créditos hasta 4 horas.
 
 ## Cuándo usar
 
-- Explícito: "sacá el reporte de campañas de la semana", "cómo nos fue este mes en marketing",
-  "consolidá las métricas de todos los canales", "necesito el reporte para gerencia", "por qué
-  bajaron los leads", "cuánto nos costó el lead este mes", "armá el consolidado mensual del área".
+- Explícito: "saca el reporte de campañas de la semana", "cómo nos fue este mes en marketing",
+  "consolida las métricas de todos los canales", "necesito el reporte para gerencia", "por qué
+  bajaron los leads", "cuánto nos costó el lead este mes", "arma el consolidado mensual del área".
 - Modo: `semanal` (default) o `mensual`. Si no lo dicen, semanal, declarado en el encabezado.
 
 ## Cuándo NO usar
@@ -41,8 +41,8 @@ de IA son compartidas y se quedan sin créditos hasta 4 horas.
 
 | Campo | De dónde sale | Si falta, preguntar |
 |---|---|---|
-| Export de Zoho CRM: leads por fuente + cierres, con fecha de creación | Admin de CRM | *"Pegame el export de Zoho con leads por fuente y cierres, con fecha de creación."* **Bloquea**: sin Zoho no hay página 1 |
-| Inversión por canal (Meta Ads Manager, Google Ads) | Agencia de pauta / plataformas | *"¿Tenés la inversión por canal del periodo?"* Si no: se emite volumen sin CPL y toda casilla de costo dice `no emitible — falta inversión` |
+| Export de Zoho CRM: leads por fuente + cierres, con fecha de creación | Admin de CRM | *"Pégame el export de Zoho con leads por fuente y cierres, con fecha de creación."* **Bloquea**: sin Zoho no hay página 1 |
+| Inversión por canal (Meta Ads Manager, Google Ads) | Agencia de pauta / plataformas | *"¿Tienes la inversión por canal del periodo?"* Si no: se emite volumen sin CPL y toda casilla de costo dice `no emitible — falta inversión` |
 | Periodo y periodo de comparación | El usuario | *"¿Qué periodo reporto y contra cuál lo comparo?"* **Bloquea**: no se asume por la fecha de hoy |
 | Modo (semanal / mensual) | El usuario | No se pregunta: semanal, declarado en el encabezado |
 | Email (Zoho Campaigns), GA4, Wati | Plataformas | No se pregunta: la fila va como `sin dato este periodo`. No se estima |
@@ -64,7 +64,7 @@ los repite en "Métricas NO emitidas y por qué" hasta que alguien los resuelva.
 Seis fases en una pasada. Las reglas de las que dependen (regla núcleo, condiciones de negativa, protocolo de eventos, escalera de lectura) van después de las fases, en este mismo Workflow.
 
 ### Fase 1 — Normalizar y etiquetar
-Para cada cifra del input, escribí su terna **fuente / ventana / universo**. La que no tenga las
+Para cada cifra del input, escribe su terna **fuente / ventana / universo**. La que no tenga las
 tres, se marca candidata a no emitible. Esto se hace **antes** de calcular nada.
 
 ### Fase 1b — Meta contra real por proceso
@@ -79,12 +79,12 @@ Sobre cada métrica derivada (CPL, CAC, conversión, blended). La que dispare cu
 se saca de la tabla y entra a la lista de no emitidas con causa y desbloqueador.
 
 ### Fase 3 — Localizar y descomponer
-Ubicá dónde está cada variación (nivel 1). Descomponé volumen vs mezcla (nivel 2). Si cayó una
-tasa agregada, corré la descomposición de mezcla **antes** de pensar en causas.
+Ubica dónde está cada variación (nivel 1). Descompón volumen vs mezcla (nivel 2). Si cayó una
+tasa agregada, corre la descomposición de mezcla **antes** de pensar en causas.
 
 ### Fase 4 — Causa o hipótesis
-Aplicá el requisito de las tres condiciones. Lo que no las cumple sale con plantilla de hipótesis.
-Revisá la lista negra antes de escribir cualquier explicación.
+Aplica el requisito de las tres condiciones. Lo que no las cumple sale con plantilla de hipótesis.
+Revisa la lista negra antes de escribir cualquier explicación.
 
 ### Fase 5 — Jerarquizar 3/3/3
 Una métrica sube a página 1 solo si **su movimiento cambia una decisión del periodo entrante**:
@@ -100,7 +100,7 @@ Dueños posibles: diseño · gerente de Growth · agencia de pauta · admin de C
 *"Revisar la estrategia de canales"* no es una recomendación.
 
 ### Fase 6 — Redactar y autovalidar
-Armá el output con la plantilla de `references/plantillas.md` y corré el checklist de abajo antes
+Arma el output con la plantilla de `references/plantillas.md` y corre el checklist de abajo antes
 de entregar. Un `no` = no se entrega: se corrige y se vuelve a chequear.
 
 ### LA REGLA NÚCLEO: fuente + ventana + universo
@@ -182,11 +182,11 @@ mezclando **pauta**, **base propia** y **fuerza comercial**. Dividir la inversi�
 un CPL falsamente bajo: ~**$4.83** implícito contra ~**[cifra interna]** de CPL Meta canónico. Es una
 inconsistencia de **10x** y ninguna versión de ese número es publicable.
 
-1. **Preguntá si el export separa el origen del lead de evento** (pauta / base propia / fuerza
+1. **Pregunta si el export separa el origen del lead de evento** (pauta / base propia / fuerza
    comercial / walk-in).
-2. **¿Sí?** → calculá el CPL usando **solo el universo pagado** en numerador y denominador, y
-   declaralo así: *"CPL Eventos (solo leads de pauta, n=X)"*.
-3. **¿No?** → emitís **volumen** (los leads son reales, entraron) y en la casilla de CPL escribís
+2. **¿Sí?** → calcula el CPL usando **solo el universo pagado** en numerador y denominador, y
+   decláralo así: *"CPL Eventos (solo leads de pauta, n=X)"*.
+3. **¿No?** → emites **volumen** (los leads son reales, entraron) y en la casilla de CPL escribes
    literalmente **`no emitible — universo mezclado`**, con la causa y el dato que lo desbloquea.
 4. **Nunca estimes el split.** Ni "aproximadamente la mitad", ni un promedio histórico, ni una
    regla de tres. Prohibido sin excepción.
@@ -201,12 +201,12 @@ llegue, la fila Eventos dice **"rentabilidad no calculable"** — no "negativa",
 
 El skill siempre sabe en qué escalón está parado y **redacta distinto en cada uno**.
 
-| Nivel | Qué tenés | Cómo se redacta |
+| Nivel | Qué tienes | Cómo se redacta |
 |---|---|---|
 | **0 — Descripción** | El número cambió | **No se publica.** "Los leads bajaron 12%" no es un hallazgo |
-| **1 — Localización** | Sabés **dónde** está la variación (canal, campaña, geo, segmento) | Afirmación directa: *"La caída está en Meta: explica 45 de los 54 leads perdidos"* |
-| **2 — Descomposición** | Sabés si es **volumen o mezcla**, y qué se movió del otro lado | Afirmación directa: *"Mismo presupuesto, menos leads: el CPL subió de $43 a [cifra interna]"* |
-| **3 — Causa** | Tenés antecedente + magnitud coherente + mezcla descartada | **Único nivel donde se puede afirmar causa.** Con la cifra citada al lado |
+| **1 — Localización** | Sabes **dónde** está la variación (canal, campaña, geo, segmento) | Afirmación directa: *"La caída está en Meta: explica 45 de los 54 leads perdidos"* |
+| **2 — Descomposición** | Sabes si es **volumen o mezcla**, y qué se movió del otro lado | Afirmación directa: *"Mismo presupuesto, menos leads: el CPL subió de $43 a [cifra interna]"* |
+| **3 — Causa** | Tienes antecedente + magnitud coherente + mezcla descartada | **Único nivel donde se puede afirmar causa.** Con la cifra citada al lado |
 
 Todo hallazgo llega **mínimo a nivel 1**. Nivel 0 no se publica nunca.
 
@@ -256,7 +256,7 @@ vas a nombrarlas, van con la plantilla de hipótesis de arriba.
 
 ### Checklist de autovalidación (Fase 6)
 
-Corré esto **antes** de entregar. Un `no` = no se entrega.
+Corre esto **antes** de entregar. Un `no` = no se entrega.
 
 **Estructura**
 - [ ] Cabe en 2 páginas. Página 1 se lee sin ir a la tabla.
@@ -356,7 +356,7 @@ Devuelve en la conversación un markdown con tablas, copiable a Google Sheets/Sl
 10. **Anexo** (no requiere lectura): impresiones, alcance, CTR, CPM, aperturas/clics de email,
    sesiones GA4, seguidores, detalle por ad set.
 11. **MÉTRICAS NO EMITIDAS ESTA SEMANA Y POR QUÉ** — sección obligatoria. Si no hay ninguna,
-    escribí *"Ninguna."* La sección **nunca se omite**.
+    escribe *"Ninguna."* La sección **nunca se omite**.
 
 **Variante mensual** — misma estructura, seis diferencias:
 1. Agrega **conversión por cohorte**: a desembolso ([cifra interna]) y a pago de servicio ([cifra interna]), en filas

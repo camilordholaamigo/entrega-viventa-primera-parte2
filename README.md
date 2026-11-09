@@ -2,18 +2,25 @@
 
 Las skills de Growth & Marketing de Viventa, construidas a partir de las entrevistas del 3 de agosto de 2026 a las seis personas del área y de la reunión del 29 de julio. Una skill es un manual de trabajo que Claude sigue cuando la tarea lo pide: no es un programa, no se conecta sola a ninguna plataforma y **no le envía nada a nadie**.
 
-> **Actualizada el 13 de octubre de 2026:** suma las 10 skills nuevas y los 8 ajustes que salieron de la revisión del 7 de octubre, y lleva las 18 anteriores a su última versión. Si ya instalaron alguna, vuelvan a subirla: la versión nueva reemplaza a la anterior.
+> **Actualizada el 9 de noviembre de 2026 — versión con su feedback.** Las 16 observaciones que nos
+> mandaron después de usar las skills están resueltas en 15 skills, y en las 28 corregimos el tono
+> (tú, no vos). **Empiecen por [`NOVEDADES-NOVIEMBRE.md`](NOVEDADES-NOVIEMBRE.md)**: dice qué cambió
+> en cada caso, con un pedido para copiar y probar. Vuelvan a subir las 28: la versión nueva
+> reemplaza a la anterior.
+>
+> **Versión anterior, 13 de octubre de 2026:** suma las 10 skills nuevas y los 8 ajustes que salieron de la revisión del 7 de octubre, y lleva las 18 anteriores a su última versión. Si ya instalaron alguna, vuelvan a subirla: la versión nueva reemplaza a la anterior.
 
 ## Qué hay en este repositorio
 
 | Carpeta o archivo | Qué tiene |
 |---|---|
+| [`NOVEDADES-NOVIEMBRE.md`](NOVEDADES-NOVIEMBRE.md) | **Lo que cambió con su feedback de noviembre**, punto por punto, con un pedido para probar cada cosa |
 | [`GLOSARIO.md`](GLOSARIO.md) | **Las 28 skills disponibles**: qué hace cada una, qué le das, qué devuelve, quién la usa y cómo pedirla |
 | [`DIAGNOSTICO.md`](DIAGNOSTICO.md) | Las personas, los procesos del área y qué skill cubre cada uno — y lo que falta |
 | [`personas/`](personas/) | Una guía por persona: sus procesos, sus skills y por dónde empezar |
 | [`skills/`](skills/) | Las 28 skills, cada una con su `SKILL.md` y sus `references/` |
 | [`descargas/`](descargas/) | Un `.zip` por skill, listo para subir a Claude |
-| [`presentacion/`](presentacion/) | La presentación de la entrega, con las 28 skills (PDF) |
+| [`presentacion/`](presentacion/) | La presentación de la entrega de octubre, con las 28 skills (PDF). Lo de noviembre está en `NOVEDADES-NOVIEMBRE.md` |
 | `instalar.sh` · `instalar.ps1` | Instalan las skills en Claude Code (Mac o Windows) |
 
 ## Por persona

@@ -77,7 +77,7 @@ estáticas  = 2
 flyers     = 3 (A3, A4, pieza de redes) × N_consultoras × N_ciudades
 ```
 
-- Default `N_monedas = 2` (USD y EUR). **Si el evento se promociona a una sola audiencia, preguntá
+- Default `N_monedas = 2` (USD y EUR). **Si el evento se promociona a una sola audiencia, pregunta
   en vez de asumir**: es la diferencia entre 34 y 24 entregables sobre una sola diseñadora.
 - Voz en off: una línea distinta por fecha y por ciudad.
 - Carga de producción: ~5 días (1 día guiones · ½ día validar el brief del equipo de Ads externo ·

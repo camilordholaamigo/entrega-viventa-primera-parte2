@@ -5,7 +5,7 @@
 ## 1. Las 4 modalidades
 
 Se diferencian por **dónde se hacen** y **quién los propone**. Eso es todo — no inventes otras
-distinciones ni modalidades nuevas. Si la solicitud no encaja limpio en una, preguntá cuál es;
+distinciones ni modalidades nuevas. Si la solicitud no encaja limpio en una, pregunta cuál es;
 no la deduzcas.
 
 | Modalidad | Dónde | Quién lo propone | Qué implica para el brief |
@@ -13,7 +13,7 @@ no la deduzcas.
 | **Open House** | Oficinas propias de Viventa | La compañía | La dirección ya se conoce (es la oficina) → el bloqueo por dirección casi nunca aplica. Igual hay que escribirla completa en el brief |
 | **Expo Colombia** | Salones de hotel o espacios rentados | La compañía | Mayor escala → más coordinación logística, metas más altas, mayor presupuesto de pauta |
 | **Expo Casa** | Espacios reducidos: aliados referidores, restaurantes | La compañía | Formato íntimo → meta de leads baja, calidad esperada alta |
-| **Viventa Más Cerca de Ti** | Puntos de información que identifican las consultoras | **La fuerza comercial** | El de mayor riesgo: llega por mensaje suelto, sin dirección, y suele incumplir los 45 días. Revisá los bloqueantes con lupa |
+| **Viventa Más Cerca de Ti** | Puntos de información que identifican las consultoras | **La fuerza comercial** | El de mayor riesgo: llega por mensaje suelto, sin dirección, y suele incumplir los 45 días. Revisa los bloqueantes con lupa |
 
 Los eventos internacionales se hacen en **USA, Canadá y Europa**, atendidos por las consultoras
 inmobiliarias.
@@ -66,7 +66,12 @@ termina en reproceso.
 | **Fecha** | Sin fecha no hay semáforo ni cronograma de producción | Quien propuso el evento |
 | **Hora de inicio y de cierre** | Va en flyer, video y voz en off | Quien propuso el evento |
 | **Modalidad** | Modula meta, dirección esperada y origen | Quien propuso el evento |
-| **N.º de ejecutivas que atienden** | Es la variable independiente de la meta de leads | Gerente de Growth |
+| *(solo virtual)* **Plataforma** | Cambia el CTA y los recordatorios. El enlace NO bloquea: va como `{LINK_REGISTRO}` | Quien propuso el evento |
+
+> **v2 (nov-2026):** el n.º de ejecutivas **dejó de ser bloqueante**. Es un dato de CRM que solo
+> alimenta el bloque de metas, y el bloque de metas es opcional (ver `virtual-y-lotes.md` §3.2). En un
+> evento **virtual** la dirección no aplica: la reemplaza la plataforma. La modalidad, si no está
+> clara, va a "por pedir" sin frenar el brief.
 
 Campos **no bloqueantes** que igual se piden si faltan: consultoras asignadas y sus datos de
 contacto, audiencia objetivo (¿solo país local o también colombianos en USA?), presupuesto de pauta,

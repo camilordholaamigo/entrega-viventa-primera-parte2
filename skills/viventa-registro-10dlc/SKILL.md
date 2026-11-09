@@ -54,7 +54,7 @@ operadores se verifica en la documentación vigente** antes de reenviar, porque 
 
 ## Workflow
 
-1. **Leé el rechazo** y clasificalo en una o más causas:
+1. **Lee el rechazo** y clasifícalo en una o más causas:
    - consentimiento no verificable o incompleto (no se ve dónde y cómo la persona acepta SMS);
    - política de privacidad sin la cláusula de no compartir datos móviles con terceros para marketing;
    - términos sin las condiciones del programa de SMS;
@@ -63,12 +63,12 @@ operadores se verifica en la documentación vigente** antes de reenviar, porque 
    - mensajes de ejemplo sin el nombre de la marca, sin opción de baja o que no coinciden con el caso de uso;
    - descripción de la campaña vaga o distinta de lo que muestran los ejemplos;
    - contenido restringido: créditos de terceros y generación de leads compartidos son categorías
-     sensibles para los operadores. **Revisá si este es el motivo**: Viventa acompaña la compra y el
+     sensibles para los operadores. **Revisa si este es el motivo**: Viventa acompaña la compra y el
      crédito, pero los bancos otorgan el crédito.
-2. **Verificá cada requisito** en la documentación vigente (búsqueda web) y anotá la fuente y la fecha.
-3. **Rearmá el expediente**:
+2. **Verifica cada requisito** en la documentación vigente (búsqueda web) y anota la fuente y la fecha.
+3. **Rearma el expediente**:
    - **Marca**: nombre legal exacto como en el registro tributario, identificación, dirección, web,
-     contacto. Si la empresa que envía no es la entidad de EE. UU., decilo y verificá qué aplica a
+     contacto. Si la empresa que envía no es la entidad de EE. UU., dilo y verifica qué aplica a
      marcas fuera de EE. UU.
    - **Caso de uso**: el que corresponde a lo que se manda (por ejemplo, recordatorios de eventos y
      seguimiento a personas que se registraron con Viventa). Si hay mezcla, el que la cubre.
@@ -80,9 +80,9 @@ operadores se verifica en la documentación vigente** antes de reenviar, porque 
    - **Mensajes de ejemplo** (3 a 5): con "Viventa:" al inicio, uno con la instrucción de baja, sin
      tasa, cuota, plazo ni aprobación de crédito, sin acortadores de link públicos.
    - **Respuestas a palabras clave**: STOP, HELP y alta, con su texto.
-4. **Armá el checklist web**: qué tiene que estar publicado antes de reenviar, página por página.
-5. **Recomendá** reenviar solo cuando el checklist esté completo. Si el rechazo fue por contenido
-   restringido, presentá las alternativas a evaluar (otro caso de uso honesto, número toll-free
+4. **Arma el checklist web**: qué tiene que estar publicado antes de reenviar, página por página.
+5. **Recomienda** reenviar solo cuando el checklist esté completo. Si el rechazo fue por contenido
+   restringido, presenta las alternativas a evaluar (otro caso de uso honesto, número toll-free
    verificado) con lo que se sabe de cada una y la recomendación de consultarlo con Twilio.
 
 ## Reglas duras
@@ -114,7 +114,7 @@ Recomendación: {reenviar cuando el checklist esté completo | consultar con Twi
 4. Fuentes verificadas (link y fecha) · Pendientes [verificar]
 ```
 
-Al terminar, decí: *"Expediente en `<ruta>`. Antes de reenviar: {n} cambios en la web. {Alerta de
+Al terminar, di: *"Expediente en `<ruta>`. Antes de reenviar: {n} cambios en la web. {Alerta de
 contenido restringido, si aplica}."*
 
 ## Skills relacionados

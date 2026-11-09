@@ -38,7 +38,7 @@ una decisión de $280 millones. Sí puede decidir si el correo 2 habla de la gar
    correo revele que se analizó su llamada destruye exactamente la confianza que se está
    tratando de construir.
 2. **Nunca nombrar la emoción.** *"Sé que te da desconfianza"* es peor que inútil: si el
-   análisis se equivocó, le acabás de decir a alguien tranquilo que lo leíste mal. Se responde
+   análisis se equivocó, le acabas de decir a alguien tranquilo que lo leíste mal. Se responde
    el **contenido** de la duda, no el **estado** del lead. La única concesión aceptable es
    *"me diste a entender"* — atribuido a lo que él dijo, no a un análisis.
 3. **Nunca reproducir la transcripción.** El resumen entra como input y **muere en el

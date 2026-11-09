@@ -8,7 +8,7 @@ description: >-
   referidor", "crea el link del referidor", "mensajes para que el referidor reenvíe por WhatsApp". Es
   el alta: viventa-ciclo-referidor lo mantiene activo y advocate arma embajadores sin comisión.
 metadata:
-  version: "1.2.0"
+  version: "2.0.0"
   domain: "acquire"
   client: "viventa"
   blueprint: "marketing"
@@ -45,25 +45,30 @@ lo hace quien tiene permiso, y el kit no sale enviable hasta que el código exis
 
 ## Input del usuario
 
-Pedí todo lo que falte **en un solo mensaje**, no de a uno.
+> **v2 (feedback del equipo, noviembre de 2026):** *"al inicio hacía muchas preguntas de
+> clarificación"*. Antes había cuatro campos que detenían la skill y una ronda de preguntas al
+> arrancar. Ahora **no se pregunta nada antes de escribir**: lo que el mensaje dice se usa, lo que no
+> dice toma el default de la tabla, y todo lo pendiente va **al final, en un solo bloque**
+> ("Para dejarlo enviable"), agrupado por persona. El kit siempre sale; si le falta algo de plata o
+> de código, sale marcado NO ENVIABLE, que ya era la regla.
 
-| Campo | De dónde sale | Si falta, preguntar |
+| Campo | De dónde sale | Si falta (sin preguntar) |
 |---|---|---|
-| Nombre del referidor y cómo quiere que le digan | El usuario | *"¿Cómo se llama el referidor y cómo le gusta que le digan?"* — **para** sin esto |
-| Ciudad y país donde vive | El usuario | *"¿En qué ciudad y país vive?"* — **para** sin esto |
-| Código y link único | Zoho, lo pega el usuario | *"¿Zoho ya generó el código y el link? Pásamelos."* — si **todavía no existen**, el skill propone el código (Bloque E), el kit sale NO ENVIABLE con `[falta: código creado en Zoho]` y sigue |
-| URL base del formulario de registro de referidos | Zoho Forms / landing | *"¿Cuál es la URL del formulario de registro de referidos?"* Sin ella, el link con seguimiento queda como estructura con `[URL del formulario]` |
-| Consultor o equipo que recibirá los referidos | Comercial | *"¿Qué consultor o equipo atiende los referidos de esta ciudad?"* Sin esto, el pedido de regla de asignación sale con la pregunta para comercial |
-| Documento vigente de incentivos de Referidores Pro | El usuario lo adjunta o pega | *"¿Tenés el documento vigente de incentivos de Referidores Pro? Pegalo o adjuntalo."* — si no lo tiene, sigue con placeholders y el kit sale NO ENVIABLE (paso 1) |
-| Relación del referidor con Viventa | El usuario | *"¿Es cliente que ya compró, aliado, o conocido de un comercial?"* — **para** sin esto |
-| A quién le va a hablar | El usuario | *"¿A quién le va a mandar esto: compañeros de trabajo, iglesia, familia, paisanos…?"* — **para** sin esto |
-| Quién firma el correo | `[nombre de quien firma]` y `[cargo de quien firma]` | Solo si el config trae `YOUR_*` o vacío: *"¿Quién firma el correo de bienvenida y con qué cargo?"* |
+| Nombre del referidor y cómo quiere que le digan | El mensaje | `{NOMBRE}` en todo el kit, como campo a reemplazar; va a "Para dejarlo enviable". Es lo único que, si falta, hace que el kit salga como **plantilla** en vez de kit personal |
+| Ciudad y país donde vive | El mensaje | Flyer con las **tres oficinas** y sin moneda; los mensajes no nombran ciudad. Va a "Para dejarlo enviable" |
+| Relación del referidor con Viventa | El mensaje (se deduce: "ya compró", "es aliado", "amigo de Carolina") | Default **conocido**: es el más prudente, porque los mensajes no hablan de una experiencia propia que quizá no tuvo. Se dice en una línea |
+| A quién le va a hablar | El mensaje | Default: mensaje 1 a quien ya le preguntó, 2 a un conocido 1:1, 3 a un **grupo de paisanos** (el público más común). Se dice en una línea |
+| Código y link único | Zoho, si lo pega el usuario | El skill propone el código (Bloque E) y el kit sale NO ENVIABLE con `[falta: código creado en Zoho]` |
+| URL base del formulario de registro de referidos | Zoho Forms / landing, si la pega el usuario | El link con seguimiento queda como estructura con `[URL del formulario]` |
+| Consultor o equipo que recibirá los referidos | Comercial | El pedido de regla de asignación sale con la pregunta para comercial |
+| Documento vigente de incentivos de Referidores Pro | El usuario lo adjunta o pega | Sigue con placeholders y el kit sale NO ENVIABLE (paso 1) |
+| Quién firma el correo | `[nombre de quien firma]` y `[cargo de quien firma]` | `[nombre de quien firma]`, en "Para dejarlo enviable" |
 
 No usa conexiones ni búsqueda web: todo entra pegado.
 
 ## Workflow
 
-1. **Resolvé el documento de incentivos.**
+1. **Resuelve el documento de incentivos.**
    - Está y trae monto, etapa de causación y plazo de pago → esos tres datos se copian **textuales**,
      con la moneda que diga el documento. No se redondean ni se convierten.
    - Está pero le falta alguno de los tres → ese campo va en placeholder y el kit sale NO ENVIABLE.
@@ -73,7 +78,7 @@ No usa conexiones ni búsqueda web: todo entra pegado.
    - Ningún otro documento sirve de reemplazo: los planes de compensación de la fuerza comercial
      interna (concurso de mercadeo, especialistas, puntos del bot) **no aplican** a un referidor externo,
      y el rango por referido que aparece en el diagnóstico interno es una recomendación, no política.
-2. **Armá el alta operativa (Bloque E)** antes del texto, porque el kit depende de ella:
+2. **Arma el alta operativa (Bloque E)** antes del texto, porque el kit depende de ella:
    - **Código propuesto**: `RP-{CIUDAD3}-{APELLIDO}` (mayúsculas, sin tildes ni espacios; CIUDAD3 de
      la convención de nombres de `viventa-pack-evento`). Si ya existe en el listado de referidores, se
      agrega un dígito. Queda marcado `propuesto — no existe hasta que Zoho lo cree`.
@@ -87,67 +92,67 @@ No usa conexiones ni búsqueda web: todo entra pegado.
    - **Tarea de seguimiento en el CRM**: a los 30 días del alta, revisar registros y cierres del
      código; si causó pago, verificar la tarea de pago (→ `viventa-conciliacion-referidos`).
    Nunca escribas un código como si ya existiera ni una URL de ejemplo como si fuera la real.
-3. **Escribí el Bloque A — texto del flyer**, campo por campo (el arte ya existe), en voz de marca:
+3. **Escribe el Bloque A — texto del flyer**, campo por campo (el arte ya existe), en voz de marca:
    titular de ≤8 palabras; bajada con nombre y ciudad; beneficio con hechos verificables (20 años,
    5 bancos, oficinas físicas en EE. UU., España y Colombia) o la promesa central sin cifras (*"se puede
    comprar en Colombia sin volver y sin quedar solo en el proceso"*); código; CTA con el link
    tal como lo pegó el usuario; pie legal: *"{Nombre} participa en el programa Referidores Pro de
    Viventa y recibe una compensación por los negocios que se cierren con su código."* Si el
-   referidor vive en una ciudad con oficina, nombrá esa oficina; si no, las tres. La moneda, si
+   referidor vive en una ciudad con oficina, nombra esa oficina; si no, las tres. La moneda, si
    aparece, es la del país del referidor: USD en EE. UU., EUR en España.
-4. **Escribí el Bloque B — correo de bienvenida**, en voz de marca, firmado por quien firma:
+4. **Escribe el Bloque B — correo de bienvenida**, en voz de marca, firmado por quien firma:
    asunto con nombre y código; CÓMO FUNCIONA en 3 pasos; CUÁNDO TE PAGAMOS con monto / etapa / plazo
    del paso 1 y el compromiso de avisarle cada cambio de estado (recibido, en estudio, cerrado,
    pagado) y cualquier demora con su motivo; DOS COSAS IMPORTANTES con tres puntos: por qué declarar
    la comisión, no hablar de tasas / cuotas / plazos ni de aprobación, y avisarle al titular antes de
    pasar su dato.
-5. **Escribí el Bloque C — 3 mensajes reenviables, en la voz del referidor**, uno por registro:
-   - Mensaje 1, al que ya le preguntó: presupone una conversación previa ("acordate que me preguntaste").
+5. **Escribe el Bloque C — 3 mensajes reenviables, en la voz del referidor**, uno por registro:
+   - Mensaje 1, al que ya le preguntó: presupone una conversación previa ("acuérdate que me preguntaste").
    - Mensaje 2, frío pero cercano, 1:1: abre el tema.
    - Mensaje 3, para grupo: dirigido al público del input. Si nombró varios, al primero; no hagas variantes.
 
    Cada uno cumple las seis reglas:
-   1. **≥1 `[CORCHETE]` vacío** donde el referidor pone por qué él lo recomienda. Nunca lo rellenás.
+   1. **≥1 `[CORCHETE]` vacío** donde el referidor pone por qué él lo recomienda. Nunca lo rellenas.
    2. **Cero vocabulario de marca**: *acompañamiento integral, aliado estratégico, solución,
       patrimonio, raíces, construir tu futuro, asesoría personalizada, te acompañamos en cada paso,
       sueño de la casa propia*. En los Bloques A y B sí se permiten.
    3. **2-4 líneas**, sin viñetas, negritas ni emojis decorativos.
-   4. **Una imperfección deliberada**: muletilla colombiana ("ome", "mirá que", "por si a alguno le
+   4. **Una imperfección deliberada**: muletilla colombiana ("ome", "mira que", "por si a alguno le
       sirve") o apertura en medio de una conversación.
    5. **Factual, no sentimental**: hechos y una invitación a averiguar ("ellos te dicen de una si te
       sirve o no"). Solo si es **cliente que ya compró** habla de su propia experiencia en primera
       persona; si es aliado o conocido, el corchete pide por qué confía, no una experiencia que no tuvo.
-   6. **El link como vía primaria**: el conocido se registra solo. Nunca "pasame el número de tu primo".
+   6. **El link como vía primaria**: el conocido se registra solo. Nunca "pásame el número de tu primo".
 
    Y cierra con el **disclosure**, al final, en primera persona y con los tres elementos: quién (yo),
    qué recibo (una comisión / "algo"), cuándo (si se cierra). Permitido: *"te aclaro que yo gano una
    comisión si se cierra"*. Prohibido: *"el remitente mantiene una relación material con Viventa"* —
    ni "divulgación", "compensación económica" ni "de conformidad con".
-6. **Escribí el Bloque D — checklist para quien envía**, siempre:
+6. **Escribe el Bloque D — checklist para quien envía**, siempre:
    ```
    [ ] ¿El código {CÓDIGO} ya existe y trackea en Zoho? (prueba de un registro con el link)
    [ ] ¿Comercial confirmó la regla de asignación?
    [ ] ¿Los montos salen del documento de incentivos vigente?
    [ ] ¿Los pagos de referidos de los últimos 90 días están al día?
-       Si no → activá igual, en seguimiento manual. Piloto: no más de 10 referidores activos.
+       Si no → activa igual, en seguimiento manual. Piloto: no más de 10 referidores activos.
    [ ] ¿Una persona leyó este kit completo?
-   ¿Este referidor va a cobrar a tiempo? Si no lo sabés, no lo actives.
+   ¿Este referidor va a cobrar a tiempo? Si no lo sabes, no lo actives.
    ```
    El tope de 10 y el ≥90% de pagos a tiempo en 90 días para escalar son heurística propia del
    diagnóstico, ajustable; Viventa no los mide hoy.
-7. **Autovalidá antes de entregar.** Un bloqueante falla → corregí y volvé a chequear; no entregues.
+7. **Autovalida antes de entregar.** Un bloqueante falla → corrige y vuelve a chequear; no entregues.
    - Bloqueantes: ningún monto de comisión que no esté textual en el documento; ninguna mención de
      tasa, cuota, plazo, cuota inicial, aprobación, valorización, rentabilidad o elegibilidad en los
      Bloques A y C; 3 de 3 mensajes con disclosure completo al final; código real presente;
      Bloque D presente; cero datos personales de terceros; link como vía primaria en los 3.
    - De calidad (se reescribe): ¿una persona real mandaría cada mensaje textual, sin vergüenza?;
-     tapando nombre y código, ¿sirve para cualquier otro referidor? (si sí, reescribí: ciudad,
+     tapando nombre y código, ¿sirve para cualquier otro referidor? (si sí, reescribe: ciudad,
      relación y público tienen que estar en el texto); corchetes vacíos y visibles; los 3 mensajes no
      comparten apertura; español de Colombia; "USD", nunca "USA"; las marcas `[⚠ no verificado]`
      que apliquen (política de datos no revisada, umbral de pagos propuesto) quedan en el Bloque D,
      no se limpian.
    - Una sola pasada: sin búsqueda web ni research adicional.
-8. **Guardá y entregá** (ver Output esperado).
+8. **Guarda y entrega** (ver Output esperado).
 
 ## Reglas duras
 
@@ -205,6 +210,12 @@ Mensaje 1 — al que ya te preguntó · Mensaje 2 — frío pero cercano · Mens
 ## Bloque D — Antes de enviar este kit
 {checklist del paso 6}
 
+## Para dejarlo enviable (un solo mensaje por persona)
+- A quien pidió el kit: {nombre del referidor si faltó · ciudad · relación si se asumió}
+- A quien administra Zoho: {código y link}
+- A comercial: {consultor que recibe}
+- A quien tiene el documento de Referidores Pro: {monto · etapa · plazo}
+
 ## Bloque E — Alta operativa
 Código propuesto: {CÓDIGO} (propuesto — no existe hasta que Zoho lo cree)
 Link con seguimiento: {URL base}?ref={CÓDIGO}&utm_source=referidor-pro&utm_medium=referido&utm_campaign={CÓDIGO}
@@ -215,11 +226,11 @@ Tarea de seguimiento: {fecha alta + 30 días} — revisar registros, cierres y t
 
 Ejemplo de mensaje 1 bien hecho (referidora ficticia, cliente que ya compró):
 
-> Ome, acordate que me preguntaste lo del apartamento en Colombia. Yo hice el proceso con Viventa,
-> [LO QUE MÁS TE SIRVIÓ A VOS]. Si querés te paso el link, mirá que ellos te dicen de una si te sirve
+> Ome, acuérdate que me preguntaste lo del apartamento en Colombia. Yo hice el proceso con Viventa,
+> [LO QUE MÁS TE SIRVIÓ A VOS]. Si quieres te paso el link, mira que ellos te dicen de una si te sirve
 > o no. Te aviso que estoy en el programa de referidos de ellos y me dan algo si cierra, pero igual te lo diría.
 
-Al terminar, decí: *"Kit listo en `<ruta>`. {Enviable / NO ENVIABLE: falta X}. Los pedidos a Zoho y
+Al terminar, di: *"Kit listo en `<ruta>`. {Enviable / NO ENVIABLE: falta X}. Los pedidos a Zoho y
 a comercial están en el Bloque E; los corchetes del Bloque C los llena {Nombre}."*
 
 ## Skills relacionados

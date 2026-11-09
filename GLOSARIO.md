@@ -2,6 +2,12 @@
 
 Todas las skills que el equipo de Growth & Marketing tiene disponibles en esta entrega. Una skill es un manual de trabajo que Claude sigue cuando la tarea lo pide: **no publica, no envía y no aprueba nada** — todas terminan en un entregable para que una persona lo revise.
 
+> **Noviembre de 2026:** 15 de estas skills cambiaron con el feedback del equipo (eventos virtuales y
+> en lote, campañas de tema con 5 + 5 + 5 piezas, copy investigado con variantes A/B, menos
+> preguntas, Vivehome en Zoho Analytics, CapCut, tipografías de Figma, radar proactivo). El detalle y
+> un pedido de prueba para cada una están en [`NOVEDADES-NOVIEMBRE.md`](NOVEDADES-NOVIEMBRE.md). Las
+> descripciones de esta tabla son de octubre.
+
 **Cómo leer el estado:** *Corrida con material real* · *Lista · falta primera corrida con datos reales* · *Nueva (29-ago) · sin corrida* · *Nueva (8-oct) · sin corrida* · *Funciona sin montos · falta documento del programa*.
 
 ## Índice

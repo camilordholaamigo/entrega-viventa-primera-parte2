@@ -32,7 +32,7 @@ según el propio VOC.
 
 | Sub-segmento | Verbatim | Cómo se ataca | Cuidado |
 |---|---|---|---|
-| **Veteranos USA con VA loan** | *"¿Ustedes también trabajan con el préstamo de VA para veteranos de USA?"* | Callout nominal directo | **El VA loan no financia propiedad fuera de EE.UU.** El ángulo NO puede ser "usá tu VA loan en Colombia" — sería promesa falsa. Formular como **pregunta**: *"¿Eres veterano y tienes un VA loan? Ven al evento y te decimos exactamente qué aplica en tu caso."* `[⚠ no verificado]` si el ingreso VA computa ante bancos colombianos — pendiente de Crédito |
+| **Veteranos USA con VA loan** | *"¿Ustedes también trabajan con el préstamo de VA para veteranos de USA?"* | Callout nominal directo | **El VA loan no financia propiedad fuera de EE.UU.** El ángulo NO puede ser "usa tu VA loan en Colombia" — sería promesa falsa. Formular como **pregunta**: *"¿Eres veterano y tienes un VA loan? Ven al evento y te decimos exactamente qué aplica en tu caso."* `[⚠ no verificado]` si el ingreso VA computa ante bancos colombianos — pendiente de Crédito |
 | **Puerto Rico** | *"Quiero info soy de PR me interesa cerca de Medellín"* | Cobertura geográfica: PR está fuera del radar de eventos | Afirmar cobertura de PR requiere confirmación de Crédito |
 | **Vivienda usada / 2ª compra** | *"¿Cómo puedo hacer para conseguir crédito con vosotros para vivienda de segunda?"* | Rompe el supuesto de obra nueva de todo el pitch actual | Afirmar que se financia usada requiere confirmación de Crédito |
 | **Sin cuota inicial ahorrada** | *"¿Y si no teníamos un peso cómo se hizo a la vivienda?"* | El más grande. Ataca el bloqueo de entrada | "Sin cuota inicial" es trigger term — formular como pregunta, no como oferta |
@@ -46,7 +46,7 @@ según el propio VOC.
 - **Prohibido** que dos hooks compartan el mismo verbo o la misma construcción sintáctica de apertura.
 - Cada guion cita un **verbatim distinto** del `references/voice-of-customer-90d.md`. Dos guiones con el
   mismo dolor = uno de los dos está de más.
-- **Test de intercambiabilidad:** tapá la ficha, leé solo los 5 hooks. Si no podés decir a qué
+- **Test de intercambiabilidad:** tapa la ficha, lee solo los 5 hooks. Si no puedes decir a qué
   ángulo pertenece cada uno, falla.
 
 **Contra-ángulo prohibido:** el pitch de "inversión inmobiliaria" / rentabilidad / yield / ROI.

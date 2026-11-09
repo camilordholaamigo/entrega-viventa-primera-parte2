@@ -22,7 +22,7 @@ Si no existe, el skill lo crea con el encabezado de la tabla y sigue. **No bloqu
 - `fecha` — `YYYY-MM-DD` del día en que se entregó el brief.
 - `territorio` — ciudad o condado con nombre propio (`Broward FL`, no `USA`).
 - `sub-segmento` — la situación, no la demografía (`vive en Broward, no maneja a Doral`).
-- `ángulo` — una frase. Si necesitás dos, son dos ángulos.
+- `ángulo` — una frase. Si necesitas dos, son dos ángulos.
 - `hook ganador` — se llena **después**, cuando la agencia reporta. Al entregar va `—`.
 - `CPL` — se llena después. Al entregar va `—`. **Nunca escribir CAC en esta columna.**
 - `estado` — `sin probar` · `activo` · `quemado`.
@@ -131,7 +131,7 @@ Estos no entran nunca. Van directo al bloque 4 del entregable si alguien los pro
 | **Tasa, cuota o plazo con cifra** | Triggering terms de Reg Z (12 CFR 1026.24). Mencionar uno obliga a disclosear APR y el resto con igual prominencia, y **un disclaimer no lo cura**. El marketing entrega precio de vivienda; tasa, cuota y plazo los da el asesor en llamada. |
 | **Proyección de valorización o rentabilidad garantizada** | Promesa no sostenible. Si la gerente de Growth entrega datos reales de rentabilidad, se enuncian como histórico con fuente, nunca como proyección. |
 | **Evento sin dirección concreta** | Reactiva la fricción #1 del VOC. Un evento sin dirección no se anuncia. |
-| **"Usá tu VA loan en Colombia"** | Falso. El VA loan no financia propiedad fuera de EE.UU. ni sus territorios. Ver `dolores-y-verbatims.md` §5.1. |
+| **"Usa tu VA loan en Colombia"** | Falso. El VA loan no financia propiedad fuera de EE.UU. ni sus territorios. Ver `dolores-y-verbatims.md` §5.1. |
 
 ---
 

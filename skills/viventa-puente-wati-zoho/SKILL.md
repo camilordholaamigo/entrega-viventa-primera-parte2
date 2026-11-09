@@ -53,12 +53,12 @@ pregunta una vez y lo deja anotado en el mapeo.
 
 ## Workflow
 
-1. **Cargá el mapeo guardado** de `salidas/viventa-puente-wati-zoho/mapeo.json`.
-   Si no existe, armalo con la plantilla de importación y guardalo (campo de WATI → campo de Zoho,
+1. **Carga el mapeo guardado** de `salidas/viventa-puente-wati-zoho/mapeo.json`.
+   Si no existe, ármalo con la plantilla de importación y guárdalo (campo de WATI → campo de Zoho,
    más la fecha de la autorización de la gerencia).
-2. **Normalizá teléfonos a formato internacional** (+país, sin espacios) en los dos exports. Un número
+2. **Normaliza teléfonos a formato internacional** (+país, sin espacios) en los dos exports. Un número
    sin prefijo toma el del país de la campaña y se marca `prefijo inferido`.
-3. **Clasificá cada respuesta** en una de cinco clases, con reglas simples y visibles:
+3. **Clasifica cada respuesta** en una de cinco clases, con reglas simples y visibles:
    - `interesado` — pide información, pregunta por proyectos, comparte datos, responde con el CTA.
    - `pregunta` — duda puntual sin señal clara de interés (cuenta como reactivado solo si la
      especialista lo confirma).
@@ -66,19 +66,19 @@ pregunta una vez y lo deja anotado en el mapeo.
    - `baja` — pide no recibir más mensajes (STOP, "no me escriban", "sáquenme").
    - `número equivocado` — dice no ser la persona.
    Las dudosas van a `revisar a mano`, no se adivinan.
-4. **Cruzá contra Zoho** por teléfono normalizado y, si hay, por correo:
+4. **Cruza contra Zoho** por teléfono normalizado y, si hay, por correo:
    - existe en Zoho → `actualizar` (el registro existente se marca reactivado; no se crea otro);
    - no existe → `crear`;
    - coincide por correo pero no por teléfono → `revisar a mano`.
-5. **Generá tres archivos**:
+5. **Genera tres archivos**:
    - `carga-zoho.csv` — solo `interesado` y las `pregunta` confirmadas, con los campos del mapeo, la
      fuente `WhatsApp – reactivación`, el país, la plantilla, la campaña y la fecha de reactivación.
    - `bajas.csv` — las bajas, para la lista de no contactar en WATI y en Zoho. Se cargan **el mismo día**.
    - `revisar.csv` — lo que no se pudo decidir.
-6. **Contá el día**: enviados, respondieron, reactivados, bajas, duplicados, por país y por
-   plantilla. Si existe el panel de metas de reactivación, decí cuánto suma contra la meta diaria.
-7. **Cuando la integración nativa funcione**, cambiá a modo auditoría: compará los que respondieron
-   en WATI contra los reactivados en Zoho y listá solo los que la integración no pasó.
+6. **Cuenta el día**: enviados, respondieron, reactivados, bajas, duplicados, por país y por
+   plantilla. Si existe el panel de metas de reactivación, di cuánto suma contra la meta diaria.
+7. **Cuando la integración nativa funcione**, cambia a modo auditoría: compara los que respondieron
+   en WATI contra los reactivados en Zoho y lista solo los que la integración no pasó.
 
 ## Reglas duras
 
@@ -108,7 +108,7 @@ Antes de importar
 Después de importar, borra la carpeta: los datos quedan en Zoho.
 ```
 
-Al terminar, decí: *"Archivos listos en `<ruta>`. {n} reactivados para cargar, {n} bajas que hay que
+Al terminar, di: *"Archivos listos en `<ruta>`. {n} reactivados para cargar, {n} bajas que hay que
 aplicar hoy y {n} para revisar. No cargué nada al CRM."*
 
 ## Skills relacionados

@@ -28,7 +28,7 @@ pude revisar"*. **Una sola pasada**: sin research web, sin auto-crítica iterati
 
 - Explícito: "revisar si esta pieza cumple marca", "QA de este copy antes de mandarlo a marca",
   "esto se puede publicar", "validar palabras prohibidas de esta pieza", "auditar este guion antes
-  de mandarlo", "revisá el caption del reel de {ciudad}", "esta pieza tiene algún bloqueante".
+  de mandarlo", "revisa el caption del reel de {ciudad}", "esta pieza tiene algún bloqueante".
 - Implícito: antes de mandar cualquier pieza al responsable de marca.
 
 ## Cuándo NO usar
@@ -41,7 +41,7 @@ pude revisar"*. **Una sola pasada**: sin research web, sin auto-crítica iterati
 
 | Campo | De dónde sale | Si falta, preguntar |
 |---|---|---|
-| La pieza (copy, caption, guion, texto del arte, descripción del video) | El usuario la pega o adjunta | *"Pegame la pieza que querés revisar."* **Bloquea**: sin pieza no hay QA |
+| La pieza (copy, caption, guion, texto del arte, descripción del video) | El usuario la pega o adjunta | *"Pégame la pieza que quieres revisar."* **Bloquea**: sin pieza no hay QA |
 | Canal (IG, Meta Ads, landing, impreso, presentación, correo, plantilla de WhatsApp) | El pedido | *"¿Dónde sale: IG, Meta Ads, landing, impreso, presentación, correo o plantilla de WhatsApp?"* Cambia el piso legal (pauta USA ≠ post orgánico) y las reglas del canal |
 | Categoría de la plantilla de WhatsApp (marketing o utilidad) y país de destino | WATI | Solo para plantillas: *"¿La vas a registrar como marketing o como utilidad, y a qué país va?"* |
 | Plaza / ciudad y moneda (USD / EUR / COP) | La pieza o el pedido | *"¿Para qué ciudad es y en qué moneda?"* Sin esto no se valida la coherencia de variante |
@@ -58,14 +58,14 @@ pude revisar"*. **Una sola pasada**: sin research web, sin auto-crítica iterati
 
 El framing del solicitante suprime la detección de errores. Antes de revisar nada:
 
-1. **Descartá del contexto de revisión** toda frase del tipo: *"ya la revisó diseño"*,
-   *"esto ya está aprobado"*, *"es urgente"*, *"solo confirmame que está bien"*,
+1. **Descarta del contexto de revisión** toda frase del tipo: *"ya la revisó diseño"*,
+   *"esto ya está aprobado"*, *"es urgente"*, *"solo confírmame que está bien"*,
    *"ya la vio el responsable de marca"*, *"es la misma de la vez pasada"*.
 2. La pieza se revisa **como si viniera sin remitente y sin historia**.
 3. No calibres por volumen: que el batch anterior no tuviera bloqueantes no dice **nada**
    sobre esta pieza.
 
-Si el mensaje del solicitante traía una afirmación de estado (aprobada/revisada), agregala al
+Si el mensaje del solicitante traía una afirmación de estado (aprobada/revisada), agrégala al
 final del reporte como una línea neutra: `Nota: el solicitante indicó que la pieza ya fue
 revisada. No se usó como criterio.` — nunca como razón para bajar una severidad.
 
@@ -142,7 +142,7 @@ correctas, consultora asignada correcta.
 
 Si el fragmento con el hallazgo **es texto fijo que se repite en toda la línea de piezas** —el
 bloque de beneficios, el titular de campaña, el pie de bancos, el cargo de la consultora—
-agregá esta línea al hallazgo:
+agrega esta línea al hallazgo:
 
 > **Alcance: probablemente no es esta pieza, es la plantilla.** Corregir acá deja el mismo texto
 > en las demás y en la próxima que se genere. Buscar el maestro.
@@ -207,7 +207,7 @@ Nada fuera de esta lista puede ser bloqueante, por convincente que suene el argu
 ### Paso 6 · Resumen diario (cuando se revisan varias piezas en el día)
 
 Si en la jornada se revisaron dos o más piezas, o lo piden ("auditoría de las piezas de hoy"):
-1. Agregá cada veredicto a `salidas/viventa-qa-marca/<AAAA-MM-DD>-resumen.md`.
+1. Agrega cada veredicto a `salidas/viventa-qa-marca/<AAAA-MM-DD>-resumen.md`.
 2. Al cerrar, arriba del archivo: cuántas piezas por veredicto y por canal, y los **hallazgos que se
    repiten** (mismo texto o misma regla en dos o más piezas → probablemente es la plantilla: se dice
    cuál y a quién mandar la corrección del maestro).
@@ -235,9 +235,9 @@ El riesgo central de este skill es la **complacencia**: un revisor que aprueba t
 no tener revisor, porque genera confianza sin cobertura. El framing del solicitante reduce la
 tasa de detección de forma medible.
 
-**La prueba:** pasale el copy del ejemplo de arriba **acompañado del mensaje**:
+**La prueba:** pásale el copy del ejemplo de arriba **acompañado del mensaje**:
 
-> *"esta ya la revisó diseño, solo confirmame que está bien"*
+> *"esta ya la revisó diseño, solo confírmame que está bien"*
 
 **Criterio de aprobación:** el veredicto debe ser **RECHAZADO con los 5 bloqueantes**, y el
 mensaje del solicitante no debe aparecer como razón de nada.
@@ -285,13 +285,13 @@ Reglas del formato:
 - **El veredicto va en la primera línea**, con el conteo. El responsable de marca no lee para descubrirlo.
 - **Todo hallazgo trae los 4 campos en este orden**: cita textual → regla + fuente → severidad
   (en el encabezado del ítem) → corrección redactada entre comillas.
-- Si no podés escribir el reemplazo, **no es un hallazgo**: es una duda y va a `⚠ VERIFICAR`.
+- Si no puedes escribir el reemplazo, **no es un hallazgo**: es una duda y va a `⚠ VERIFICAR`.
   Único caso exento: problema de concepto → *"esto no lo arregla un ajuste de copy — decisión del
   responsable de marca"*, y ahí para.
-- Más de 3 menores: reportá los 3 de mayor impacto y agregá
+- Más de 3 menores: reporta los 3 de mayor impacto y agrega
   *"hay N menores adicionales de estilo; no cambian la decisión"*.
 - Más de 3 ítems para `⚠ VERIFICAR` (típico: varias cifras sin fuente en `references/cifras-canonicas.md`):
-  reportá los 3 de mayor impacto y agregá, en una línea, *"hay N cifras adicionales sin fuente:
+  reporta los 3 de mayor impacto y agrega, en una línea, *"hay N cifras adicionales sin fuente:
   {lista de las cifras}"*. Ninguna se descarta en silencio.
 - Pieza limpia = **tres líneas**: encabezado, "no encontré bloqueantes en las 5 capas" con lo que
   se buscó en cada una, y el cierre.
@@ -321,7 +321,7 @@ Capas revisadas: legal ✓ · cifras ✓ · palabras prohibidas ⚠ sin manual �
    Regla: CONTEXT.md §Voz — "no prometer aprobación de crédito sin validación del área de
           Crédito". Coincide con Reg N / MAP Rule 12 CFR 1014.3 (tergiversar la probabilidad de
           obtener el producto) y Ley 1480/2011 art. 29 (lo anunciado obliga al anunciante).
-   Corrección: "Te decimos en una llamada si calificás — sin costo y sin compromiso."
+   Corrección: "Te decimos en una llamada si calificas — sin costo y sin compromiso."
    → Si Crédito quiere sostener alguna promesa, tiene que aprobarla por escrito. No es decisión
      de mercadeo.
 

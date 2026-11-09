@@ -93,7 +93,7 @@ cualquier reescritura del brief.
 Verbatim: *"Ustedes también trabajan con el préstamo de VA para veteranos de USA?"*
 
 ⚠️ **El VA loan NO financia propiedad fuera de EE.UU. ni de sus territorios.**
-El ángulo **no puede ser** "usá tu VA loan en Colombia" — eso es promesa falsa y no es
+El ángulo **no puede ser** "usa tu VA loan en Colombia" — eso es promesa falsa y no es
 reparable con un disclaimer. El ángulo correcto responde la pregunta con honestidad y redirige:
 *"tu ingreso estable de veterano te sirve acá, aunque el VA no cruce la frontera"*.
 

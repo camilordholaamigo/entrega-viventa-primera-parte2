@@ -1,15 +1,16 @@
 ---
 name: viventa-guiones-evento
 description: >-
-  Escribe los 5 guiones de video de un evento Viventa en una pasada: matriz de ángulos asignada
-  antes de escribir, hook de 3 segundos, guion con tiempos, shot list grabable, variantes USD/EUR,
-  bloque de voz en off por ciudad y validación de palabras prohibidas con lo que necesita visto
-  bueno de Crédito. USA cuando: "escribí los 5 guiones del evento de Tampa", "necesito los guiones
+  Escribe los 5 guiones de video de uno o varios eventos Viventa (presenciales, virtuales o híbridos)
+  en una pasada: hooks investigados en lo que funciona hoy en Instagram y TikTok, matriz de ángulos
+  asignada antes de escribir, hook de 3 segundos con variante B, guion con tiempos, shot list
+  grabable, variantes USD/EUR, bloque de voz en off por ciudad (o por plataforma y zona horaria) y
+  validación de palabras prohibidas. USA cuando: "escribe los 5 guiones del evento de Tampa", "necesito los guiones
   para grabar esta semana", "plan de tomas para la grabación", "guiones nuevos, que no queden todos
   iguales". Es preproducción de video: viventa-pack-evento redacta el copy de cada archivo y
   viventa-qa-marca audita piezas ya hechas.
 metadata:
-  version: "1.1.0"
+  version: "2.0.0"
   domain: "produce"
   client: "viventa"
   blueprint: "marketing"
@@ -20,9 +21,18 @@ metadata:
 
 Produce los **5 guiones de video** de un evento, listos para que la productora de video los grabe
 en una sola sesión y el aprobador de marca los revise. Invariantes de toda corrida: sin dirección
-exacta no se escribe nada, los 5 ángulos se asignan antes de escribir y son 5 hipótesis distintas,
-ninguna línea con tasa, cuota o plazo se graba sin visto bueno de Crédito, y el skill no aprueba ni
+exacta (o plataforma, si es virtual) no se **graba ni publica** el bloque de cierre, pero el resto
+de los guiones sí se escribe; los 5 ángulos se asignan antes de escribir y son 5 hipótesis distintas;
+ninguna línea con tasa, cuota o plazo se graba sin visto bueno de Crédito; y el skill no aprueba ni
 publica.
+
+> **Qué cambió en la v2 (feedback del equipo, noviembre de 2026).** Sin dirección la skill antes no
+> escribía nada; ahora escribe los 5 guiones y deja **solo el bloque de cierre** (voz en off con
+> dirección, fecha y hora) pendiente — es justo la parte que se graba aparte. Funciona con **eventos
+> virtuales** (plataforma + hora por zona en vez de dirección) y con **varios eventos** a la vez (los
+> mismos 5 conceptos, un bloque de cierre por evento). Y los hooks salen de investigar qué está
+> funcionando hoy en redes, con variante B para probar
+> (`references/copy-que-convierte.md`).
 
 ## Cuándo usar
 
@@ -46,7 +56,7 @@ publica.
 
 | Campo | De dónde sale | Si falta, preguntar |
 |---|---|---|
-| Ciudad, país, venue, **dirección completa**, fecha(s), horario local | El brief del evento | **Bloquea** (Paso 1). *"Pasame la dirección completa del venue: calle, número, ciudad."* Se pide a quien armó el brief |
+| Ciudad, país, venue, **dirección completa** (o plataforma si es virtual), fecha(s), horario local | El brief del evento | **Bloquea solo el bloque de cierre** (Paso 1): los guiones se escriben igual. La dirección se investiga si viene el nombre del venue |
 | Modalidad (Open House · ExpoColombia · Expo Casa · Viventa Más Cerca de Ti) | El brief | *"¿Qué modalidad es?"* Define el registro del headline |
 | Tanda: lanzamiento u optimización | El usuario | No se pregunta: si nadie lo dice, es **lanzamiento** |
 | Rendimiento por ángulo (qué rindió, qué se quemó) | Salida de `viventa-monitor-evento` | Solo en optimización: *"¿Qué ángulo rindió y cuál no, según el monitor?"* Sin esto no hay tanda de optimización (Paso 2) |
@@ -62,18 +72,29 @@ pregunta el país, nunca la moneda. País fuera de la tabla → se pregunta la m
 
 ## Workflow
 
-### Paso 1 — Gate de inputs
+### Paso 1 — Gate de inputs (no frena la escritura)
 
-1. Chequeá la tabla. Si falta la dirección exacta (barrio o ciudad sola cuentan como faltante),
-   detenete y emití solo:
+1. Formato: presencial, virtual o híbrido (`references/virtual-y-lotes.md` §1).
+   Si el pedido trae **varios eventos**, modo lote (§2 de esa referencia): los 5 conceptos se
+   escriben una vez y el **bloque de cierre (VO + CTA) se escribe por evento**.
+2. Si falta la dirección exacta de un presencial (barrio o ciudad sola cuentan como faltante) y vino
+   el nombre del venue, búscala y márcala `[investigado — confirmar]`. Si no hay ni venue, **escribe
+   igual los 5 guiones** y deja el bloque de cierre de ese evento así:
    ```
-   ⛔ NO SE PUEDEN ESCRIBIR LOS GUIONES
-   INPUTS REQUERIDOS
+   ⛔ BLOQUE DE CIERRE PENDIENTE — no se graba ni se publica hasta tener la dirección
    - Dirección completa del venue en {ciudad} → pedir a: {quien armó el brief}
-   - {otros faltantes, con a quién}
-   Motivo: sin dirección concreta ninguna pieza puede salir (fricción #1 del Voice of Customer).
    ```
-2. Ese bloque es un output válido. No inventes un venue plausible.
+   Nunca inventes un venue plausible. Motivo: sin dirección concreta ninguna pieza puede **salir**
+   (fricción #1 del Voice of Customer); pero el resto del video sí se puede grabar.
+3. **Virtual:** el cierre lleva plataforma, fecha y la hora en la zona del público de cada versión
+   (USA: ET; España: hora de Madrid) y "regístrate y te llega el enlace". Nunca se pide dirección.
+
+### Paso 1-bis — Investigar hooks (una pasada, máximo 6 búsquedas)
+
+Corre `references/copy-que-convierte.md` §1 y §3: qué hooks y
+formatos de video están funcionando hoy en reels y TikToks del tema, y qué anuncios de la competencia
+llevan más de 30 días activos en la Biblioteca de anuncios de Meta. Cada guion dice de qué referente
+sale su hook, si sale de uno, con URL. Si el equipo pegó referentes, se empieza por esos.
 
 ### Paso 2 — Elegir la tanda
 
@@ -93,11 +114,13 @@ Reglas de optimización:
 
 ### Paso 3 — Asignar los ángulos antes de escribir
 
-1. Cargá `references/matriz-angulos.md` y armá la matriz de 5 filas: `# · ángulo · sub-segmento
+1. Carga `references/matriz-angulos.md` y arma la matriz de 5 filas: `# · ángulo · sub-segmento
    ICP · dolor VOC (verbatim) · tipo de hook (value promise · curiosity · shock) · estructura
    narrativa · promesa · prueba · hipótesis`.
-2. Los ángulos 1, 2, 3 y 5 son fijos. El 4 rota entre los 4 sub-segmentos desatendidos: elegí el que
-   aplique al territorio y declaralo.
+2. Los ángulos 1, 2, 3 y 5 de la matriz son el **punto de partida**, no una jaula: si la
+   investigación del Paso 1-bis o el brief creativo de `viventa-inteligencia-campana` traen un ángulo
+   más fuerte, reemplaza el más débil y dilo en la matriz (`reemplaza al ángulo {n} porque…`). El 4
+   rota entre los 4 sub-segmentos desatendidos: elige el que aplique al territorio y decláralo.
 3. Cada fila lleva una estructura narrativa distinta y un verbatim distinto del VOC. Si no hay 5
    verbatims distintos disponibles, el guion sin verbatim se marca `⚠ sin verbatim propio` en lugar
    de repetir uno.
@@ -109,15 +132,18 @@ Cada guion lleva 8 bloques, en este orden:
 
 1. **Ficha** — ángulo · sub-segmento · dolor con verbatim · tipo de hook · estructura · duración
    (15-30 s) · hipótesis.
-2. **Hook 0:00-0:03** — literal, ≤ 12 palabras. Sin saludo, sin marca, sin logo. La acción ya
-   empezó en el frame 1.
+2. **Hook 0:00-0:03** — literal, ≤ 12 palabras, dicho y en pantalla, con **hook B** para probar
+   (cambia solo el hook: el resto del video es el mismo, así se graban las dos entradas en la misma
+   sesión). Sin saludo, sin marca, sin logo. La acción ya empezó en el frame 1.
 3. **Guion hablado** — tabla `Tiempo | Línea | Nota de dirección`, con pattern interrupt marcado
    cada 5-8 s.
 4. **Shot list** — columnas fijas de `references/shot-list.md`, sin exceder los recursos declarados.
 5. **Texto en pantalla** por segmento, con nota de zona segura 9:16 vs 1:1.
 6. **Variantes de cifra USD/EUR** — según la jerarquía de moneda (Paso 5).
 7. **Bloque de VO por ciudad y fecha** — las frases que cambian por ciudad, para grabar en tanda.
-8. **CTA** — con ciudad, dirección, fecha y hora ya resueltas.
+8. **CTA** — con ciudad, dirección, fecha y hora ya resueltas (o el bloque pendiente del Paso 1).
+   En virtual: plataforma, fecha, hora en la zona del público y "regístrate y te llega el enlace".
+   Un solo CTA, con verbo y con lo que pasa después (`copy-que-convierte.md` §5).
 
 ### Paso 5 — Resolver moneda, ciudad y fecha fuera de labios
 
@@ -148,12 +174,14 @@ De mejor a peor:
    españolismos, "inversión" donde va "patrimonio", "solución integral", "aliado estratégico".
 4. Siempre van a B: tasa, cuota mensual, % o monto de cuota inicial, plazo en años, cobertura de un
    producto o país (VA loan, ITIN, vivienda usada, Puerto Rico, Canadá), requisitos de calificación.
-5. Corré los 12 tests del Output esperado. Si uno falla, arreglalo; si no se puede sin un dato que
-   no tenés, queda como faltante en el bloque de validación.
+5. Corre los 12 tests del Output esperado. Si uno falla, arréglalo; si no se puede sin un dato que
+   no tienes, queda como faltante en el bloque de validación.
 
 ## Reglas duras
 
-- **Nunca escribe un guion sin dirección exacta**: el output es solo `INPUTS REQUERIDOS`.
+- **Nunca deja grabable ni publicable un bloque de cierre sin dirección exacta** (o plataforma, en
+  virtual): ese bloque sale `⛔ PENDIENTE` con el dato y a quién pedirlo. El resto del guion se escribe.
+- **Nunca pide dirección física a un evento virtual.**
 - **Nunca deja en un guion para grabar una línea con tasa, cuota, plazo o cuota inicial** sin que
   esté en el bloque B marcada "no se graba hasta el OK de Crédito".
 - **Nunca promete aprobación de crédito ni valorización.** Permitido: "te acompañamos en el

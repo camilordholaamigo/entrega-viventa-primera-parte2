@@ -1,14 +1,15 @@
 ---
 name: viventa-pack-evento
 description: >-
-  Convierte los guiones y el brief de un evento Viventa en la matriz de producción: una fila por
-  archivo con el copy final escrito, el nombre de archivo normalizado, el árbol de carpetas con su
-  índice y el CSV para las plantillas maestras de Figma. USA
+  Convierte los guiones y el brief de uno o varios eventos Viventa (presenciales, virtuales o
+  híbridos) en la matriz de producción: una fila por archivo con el copy final escrito y su variante
+  B, el nombre de archivo normalizado, el árbol de carpetas con su índice y el CSV para las
+  plantillas maestras de Figma. USA
   cuando: "arma el pack de piezas del evento de Tampa", "necesito la matriz de producción", "qué
   copy va en cada pieza del evento", "el CSV para el data merge de los flyers". Es postproducción: viventa-guiones-evento escribe los videos antes y
   viventa-brief-evento estima el tamaño del pack al recibir la solicitud.
 metadata:
-  version: "1.1.0"
+  version: "2.0.0"
   domain: "produce"
   client: "viventa"
   blueprint: "marketing"
@@ -45,10 +46,10 @@ lleva un placeholder, ninguna cifra sale de fuera del input, y el skill no aprue
 
 | Campo | De dónde sale | Si falta, preguntar |
 |---|---|---|
-| Ciudad, país, venue + dirección completa (calle, número, CP, ciudad, estado) | Brief del evento | **Bloquea** (Paso 1). *"Pasame venue y dirección completa con código postal."* Se pide a quien armó el brief |
+| Ciudad, país, venue + dirección completa (calle, número, CP, ciudad, estado) — o plataforma si es virtual | Brief del evento, o investigada si viene el venue | **No bloquea la matriz** (Paso 1): va como `{DIRECCION}` en el CSV y bloquea solo la exportación para publicar |
 | Fecha(s) y horario **local** del evento | Brief del evento | **Bloquea.** *"¿Fecha y horario en hora local del evento?"* Nunca hora Colombia |
 | Modalidad | Brief del evento | **Bloquea.** *"¿Es ExpoColombia, Open House, Expo Casa o Más Cerca de Ti?"* Define headline y arquitectura del flyer |
-| Conceptos de video | Salida de `viventa-guiones-evento` | *"Pasame los guiones del evento."* Si hay menos de 5, se corre con los que haya y se declara. No se inventan conceptos |
+| Conceptos de video | Salida de `viventa-guiones-evento` | *"Pásame los guiones del evento."* Si hay menos de 5, se corre con los que haya y se declara. No se inventan conceptos |
 | Tanda: lanzamiento u optimización | Brief o usuario | No se pregunta: sin indicación, lanzamiento |
 | Escala: conceptos de carrusel y estática, formatos | Brief del evento | No se pregunta: defaults (3 carruseles, 2 estáticas, 9:16 + 1:1 + A3 + A4 + redes 1:1), declarados en la cabecera |
 | Consultoras: nombre, email, teléfono, foto | Brief o líder comercial de la plaza | **Bloquea solo las filas de esa consultora**: van con `⛔ INPUT REQUERIDO` y se pide a la líder comercial |
@@ -62,26 +63,33 @@ pregunta el país, nunca la moneda. País fuera de la tabla → se pregunta la m
 
 ## Workflow
 
-### Paso 1 — Gate de inputs
+### Paso 1 — Gate de inputs (la matriz se arma igual; lo que falta bloquea la publicación, no el trabajo)
 
-1. Chequeá la tabla. Si falta dirección completa, fecha/horario o modalidad, detenete y emití solo:
-   ```
-   ⛔ NO SE PUEDE GENERAR LA MATRIZ — {MODALIDAD} · {CIUDAD}
-   INPUTS REQUERIDOS
-   - Dirección completa del venue en {ciudad} → pedir a: {quien armó el brief}
-   - {otros faltantes, con a quién}
-   Motivo: sin dirección concreta ninguna pieza pública puede salir (fricción #1 del Voice of Customer).
-   ```
-2. Faltantes que no bloquean la matriz entera: datos de una consultora (bloquean sus 3 filas),
-   testimonio local, monto de reserva (bloquea su beneficio).
+> **v2 (feedback del equipo, noviembre de 2026):** antes, sin dirección, la skill no producía nada.
+> Ahora arma la matriz completa y la dirección (o el enlace, en virtual) entra como **campo de data
+> merge** `{DIRECCION}` / `{LINK_REGISTRO}`, igual que el teléfono de la consultora: se llena en el CSV
+> cuando llegue, y **ninguna pieza se exporta para publicar con la llave visible**. Soporta eventos
+> **virtuales** y **varios eventos a la vez** (`references/virtual-y-lotes.md`).
+
+1. **Formato y lote.** Presencial, virtual o híbrido (§1 de `virtual-y-lotes.md`). Si vienen varios
+   eventos, una sola matriz con columna `Evento`, el máster una vez y la capa local por evento (§2).
+2. **Dirección.** Si vino el nombre del venue, búscala y márcala `[investigado — confirmar]`. Si no
+   hay nada, la columna de dirección del CSV queda `⛔ PENDIENTE` y la cabecera dice: `No exportar para
+   publicar: falta la dirección de {ciudad} → pedir a {quien armó el brief}`.
+3. **Virtual:** sin placa de dirección ni flyer impreso A3/A4 (salvo que se pida); en su lugar, placa
+   de plataforma + hora por zona y 2 piezas de recordatorio ("Hoy a las {hora}", "Estamos en vivo").
+4. Lo único que sí detiene la matriz: **no saber la fecha**. Sin fecha no hay naming ni calendario:
+   se emite solo `INPUTS REQUERIDOS` con la fecha y a quién pedirla.
+5. Faltantes que no bloquean la matriz: datos de una consultora (bloquean sus 3 filas en el CSV),
+   testimonio local, monto de reserva (bloquea su beneficio), modalidad (se deduce o va a pendientes).
 
 ### Paso 2 — Resolver la capa local una sola vez
 
-1. Separá las capas: **máster** (conceptos, promesa, hook, bancos, constructoras: no cambia por
+1. Separa las capas: **máster** (conceptos, promesa, hook, bancos, constructoras: no cambia por
    ciudad) · **local** (ciudad, país, fecha, venue, dirección, horario, moneda, modalidad: una vez por
    evento) · **persona** (nombre, cargo, email, teléfono, foto) · **composición** (9:16 vs 1:1, A3 vs
    A4: no multiplica copy).
-2. Redactá tres piezas reutilizables y usalas literales en toda la matriz:
+2. Redacta tres piezas reutilizables y usalas literales en toda la matriz:
    - Bloque logístico largo: `{venue}, {calle y número}, {ciudad}, {estado} {CP}. {fecha(s)} · {hora inicio} – {hora fin}. Entrada libre.`
    - Bloque logístico corto (≤ 1 línea legible a 300 px): `{Ciudad} · {fechas} · {venue} · {calle y número} · {hora inicio} – {hora fin}`
    - Línea de VO localizada: la dirección hablada, sin CP, con el número como se dice.
@@ -92,12 +100,15 @@ pregunta el país, nunca la moneda. País fuera de la tabla → se pregunta la m
 
 ### Paso 3 — Redactar las unidades de copy, no los archivos
 
-1. Escribí solo las unidades únicas, cada una con su `COPY_ID`: `V01…V05` (primary text + VO
+1. Escribe solo las unidades únicas, cada una con su `COPY_ID`: `V01…V05` (primary text + VO
    localizada por video) · `C1…C3` (carrusel slide por slide, ~5 slides) · `E01…E02` (estáticas) ·
    `F01` (flyer general, las 10 ranuras de `references/specs-formato.md`) · `P01…P0N` (contacto por
-   consultora).
+   consultora). Si el brief creativo de `viventa-inteligencia-campana` pidió **5 carruseles y 5
+   estáticas**, son `C1…C5` y `E01…E05`: el tamaño lo manda el brief, no este default.
 2. El hook va en los primeros 125 caracteres del primary text; la dirección, después del corte "ver
-   más". Cada celda de copy Meta lleva su conteo de caracteres.
+   más". Cada celda de copy Meta lleva su conteo de caracteres. **Cada hook y cada titular llevan su
+   variante B** (`V01-B`, `E01-B`…), que cambia solo esa línea, para que la agencia pruebe sin
+   rediseñar. Los hooks se escriben con `references/copy-que-convierte.md` §3.
 3. El último slide de todo carrusel es el bloque logístico corto.
 4. Texto congelado, copiado literal:
 
@@ -114,17 +125,17 @@ pregunta el país, nunca la moneda. País fuera de la tabla → se pregunta la m
 
 1. Una fila por archivo. Las filas 9:16 y 1:1 del mismo concepto **referencian** el mismo `COPY_ID`
    (`↳ V01`); solo cambia la columna de notas de composición.
-2. Calculá con la escala del brief (`V` ≤ 5 videos, `C` ≤ 3 carruseles, `E` ≤ 2 estáticas son topes
+2. Calcula con la escala del brief (`V` ≤ 5 videos, `C` ≤ 3 carruseles, `E` ≤ 2 estáticas son topes
    de **conceptos**; formatos `F` y consultoras `N` no tienen tope):
    ```
    ARCHIVOS = (V × 2 formatos) + (C × ~5 slides × 2 formatos) + (E × 2 formatos)
             + 1 flyer general A3 + (3 superficies × N consultoras)
    COPY     = V + C + E + 1 + N
    ```
-3. Si piden "150 piezas" o "22 videos", preguntá si son archivos o conceptos antes de advertir: 150
+3. Si piden "150 piezas" o "22 videos", pregunta si son archivos o conceptos antes de advertir: 150
    archivos desde 15 unidades de copy no rompe nada; más de 5 conceptos de video sí, y se pide
    priorizar.
-4. Declará la escala en la cabecera marcando los defaults: `Escala: V=5 [default], C=3 [default],
+4. Declara la escala en la cabecera marcando los defaults: `Escala: V=5 [default], C=3 [default],
    E=2 [default], N=6 [del brief]`.
 5. Tanda de optimización: otra corrida, prefijo `OPT` en cada nombre de archivo, nunca mezclada con
    la de lanzamiento.
@@ -133,14 +144,14 @@ pregunta el país, nunca la moneda. País fuera de la tabla → se pregunta la m
 
 ### Paso 5 — CSV de consultoras
 
-1. Emití el CSV con el esquema exacto de `references/naming-y-datamerge.md` §4.
-2. Aplicá la capa persona (§5): email derivado del patrón marcado `⚠ verificar`; teléfono siempre del
+1. Emite el CSV con el esquema exacto de `references/naming-y-datamerge.md` §4.
+2. Aplica la capa persona (§5): email derivado del patrón marcado `⚠ verificar`; teléfono siempre del
    input; prefijo telefónico distinto del país del evento → `⚠ verificar prefijo`, sin asumir cuál
    es el correcto. Más de 6 consultoras → advertir antes de generar.
 
 ### Paso 6 — Carpetas e índice de archivo
 
-1. Reproducí la convención que ya usan: mes → evento-ciudad → consultora → pieza. No inventes otra:
+1. Reproduce la convención que ya usan: mes → evento-ciudad → consultora → pieza. No inventes otra:
    remapearía el histórico.
 2. **Árbol de carpetas** en texto plano, numerado (`01.VIDEOS`, `02.CARRUSELES`…), listo para
    crear en Drive. Una carpeta por consultora, no una por pieza; si piden carpeta por pieza, se hace
@@ -151,16 +162,21 @@ pregunta el país, nunca la moneda. País fuera de la tabla → se pregunta la m
 
 ### Paso 7 — Chequeo y cierre
 
-1. Verificá: cero corchetes, `TBD` o `N/A` en copy; toda pieza pública con dirección completa;
+1. Verifica: cero corchetes, `TBD` o `N/A` en copy (las únicas llaves permitidas son los campos de
+   data merge del CSV, listados en la cabecera); toda pieza pública con dirección completa o con
+   `{DIRECCION}` marcada como pendiente de exportar; cada hook y cada titular con su variante B;
+   cada pieza pasa el test de mediocridad (`references/copy-que-convierte.md` §7);
    conteo declarado de archivos = filas de la matriz = filas del índice; unidades de copy
    declaradas aparte; moneda `USD`/`EUR`/`GBP`, nunca "USA" ni `$` solo; cero emojis de bandera.
-2. Todo hallazgo va al bloque de cierre. Cerrá con `APROBACIÓN DE MARCA: pendiente — aprobador de
+2. Todo hallazgo va al bloque de cierre. Cierra con `APROBACIÓN DE MARCA: pendiente — aprobador de
    marca`.
 
 ## Reglas duras
 
-- **Nunca genera la matriz sin dirección completa, fecha/horario local y modalidad**: el output es
+- **Nunca deja exportable para publicar una pieza sin dirección completa** (o enlace, en virtual):
+  la matriz se genera, pero la cabecera dice qué no se exporta y por qué. Sin **fecha**, el output es
   solo `INPUTS REQUERIDOS`.
+- **Nunca pide dirección física a un evento virtual.**
 - **Nunca deja un placeholder en una celda de copy** (`[ciudad]`, `TBD`, `N/A`). Dato que falta →
   `⛔ INPUT REQUERIDO: {qué} → pedir a: {quién}`.
 - **Nunca escribe tasa, cuota, plazo ni cuota inicial**, ni promete aprobación: el material de

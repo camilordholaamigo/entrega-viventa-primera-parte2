@@ -37,8 +37,8 @@ ahí está parado el lector que lo va a ver.
 
 ## Regla de formulación
 
-**Nunca nombrar la emoción dentro de la pregunta.** Si le decís "¿sentiste miedo?", te devuelve tu
-palabra. Si le preguntás "¿qué era lo peor que te imaginabas?", te devuelve la suya — y **la suya es
+**Nunca nombrar la emoción dentro de la pregunta.** Si le dices "¿sentiste miedo?", te devuelve tu
+palabra. Si le preguntas "¿qué era lo peor que te imaginabas?", te devuelve la suya — y **la suya es
 el activo**. Si dijo *"raro"*, el caso dice *"raro"*.
 
 ## Laddering y scaffolding
@@ -50,7 +50,7 @@ Escalera: atributo → consecuencia funcional → consecuencia emocional → val
 
 Advertencia documentada (QRCA, 2025): preguntar "¿por qué?" muchas veces seguidas incomoda y puede
 **generar** respuestas socialmente deseables. **Máximo 2 "¿por qué?" seguidos**; alternar con
-andamiaje: *"contame más de eso"*, *"¿y qué pasó después?"*, *"¿cómo fue ese día?"*.
+andamiaje: *"cuéntame más de eso"*, *"¿y qué pasó después?"*, *"¿cómo fue ese día?"*.
 
 ## Silencio
 

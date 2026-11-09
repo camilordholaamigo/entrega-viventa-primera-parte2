@@ -31,7 +31,7 @@ compartidas y se quedan sin créditos hasta 4 horas). Lo que falte se declara de
 
 ## Cuándo usar
 
-- Explícito: "¿cómo vamos de presupuesto de pauta este mes?", "haceme el forecast de pauta de
+- Explícito: "¿cómo vamos de presupuesto de pauta este mes?", "hazme el forecast de pauta de
   {mes}", "siento que esta campaña nos va a salir muy costosa", "¿nos vamos a pasar del presupuesto
   en Meta?", "estamos a 15 y no sé cuánto llevamos gastado de verdad", "¿todavía alcanzo a corregir
   esto o ya se me fue el mes?", "corte de pauta al día {n}", "¿el gasto que llevamos nos va a dar
@@ -52,10 +52,10 @@ Los exports vienen **pegados como CSV o tabla**. No hay integración por API con
 
 | Campo | De dónde sale | Si falta, preguntar |
 |---|---|---|
-| A · Export Meta Ads del 1 al día de corte, por ad set: nombre, gasto, leads, presupuesto diario, estado | Ads Manager, pegado | *"Pegame el export de Meta del 1 al {día}, por ad set, con gasto, leads, presupuesto diario y estado."* **Bloquea**: sin esto no hay ficha |
+| A · Export Meta Ads del 1 al día de corte, por ad set: nombre, gasto, leads, presupuesto diario, estado | Ads Manager, pegado | *"Pégame el export de Meta del 1 al {día}, por ad set, con gasto, leads, presupuesto diario y estado."* **Bloquea**: sin esto no hay ficha |
 | B · Presupuesto aprobado del mes por canal | Dirección financiera / el usuario | *"¿Cuál es el presupuesto aprobado de pauta por canal para {mes}?"* Si no lo tiene: ficha solo con capas y pacing sin meta, y arriba *"sin presupuesto aprobado cargado no hay desviación calculable"*. **Nunca se infiere** |
 | C · CPL objetivo del mes (el que fijó la agencia) | La agencia de pauta | *"¿Qué CPL objetivo fijó la agencia para {mes}?"* Si no lo tiene: no se emite el cruce gasto↔leads ni la alerta "va a salir cara"; se reporta CPL real `[dato]` sin contra qué comparar |
-| D · Export Zoho Expense con su fecha de corte | Zoho Expense | *"¿Tenés el export de Expense? ¿A qué fecha?"* Si no: capa 3 = `[n/d]` y va a "Qué no sé" como sub-estimación probable |
+| D · Export Zoho Expense con su fecha de corte | Zoho Expense | *"¿Tienes el export de Expense? ¿A qué fecha?"* Si no: capa 3 = `[n/d]` y va a "Qué no sé" como sub-estimación probable |
 | E · Eventos del mes: nombre, fecha, pauta briefeada | Brief de eventos | *"¿Hay eventos este mes con pauta briefeada? Nombre, fecha y monto."* Si no: *"no se cargaron eventos; si hay alguno, esta proyección lo sub-estima"* |
 | F · Export Google Ads u otros canales | Plataforma | No se pregunta: la fila del canal va en `[n/d]`, no se omite |
 | G · Latencia de la agencia (round-trip brief→implementación) | El usuario | No se pregunta: default **4-5 días** (2 hábiles de round-trip + 2-3 de re-estabilización algorítmica) `[⚠ no verificado — calibrar con la gerente de Growth]` |
@@ -165,10 +165,10 @@ antes de emitir — no hay segunda pasada.
   (presupuesto · comprometido · ejecutado · proyección al cierre · desviación) por campaña y por rubro,
   y las **alertas tempranas ordenadas por riesgo**: primero lo que va a sobreejecutarse con menos días
   útiles para corregir. Un rubro sin presupuesto cargado se muestra igual, marcado.
-- **Modo D — Conciliación con contabilidad** (cuando llega el cierre contable): compará por rubro la
+- **Modo D — Conciliación con contabilidad** (cuando llega el cierre contable): compara por rubro la
   proyección del último corte contra lo contabilizado. Cada diferencia mayor a 5 % se explica en una
   de cuatro causas: desfase de fechas, reclasificación de rubro, gasto no visto en ninguna fuente o
-  error de proyección. Cerrá con qué ajustar del método para el mes siguiente.
+  error de proyección. Cierra con qué ajustar del método para el mes siguiente.
 - **Modo B — Nota para el mes entrante** (días útiles ≤ 0, o desvío con <5 días útiles):
   sin alertas, sin opciones. Estructura: titular con el cierre proyectado ·
   4 capas · qué explicó la desviación · **qué cargar distinto en el presupuesto del mes

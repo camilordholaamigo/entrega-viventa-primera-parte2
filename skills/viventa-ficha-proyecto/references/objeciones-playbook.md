@@ -42,5 +42,5 @@ Bien — con el dato del proyecto adentro y el filtro aplicado:
 ## Recordatorio de densidad
 
 La ficha lleva **exactamente 2** objeciones. Una ficha con 6 no se lee, y un battlecard que no se lee
-no se usa. Elegí las 2 más probables **para el sub-segmento elegido**, no las 2 primeras de la tabla.
+no se usa. Elige las 2 más probables **para el sub-segmento elegido**, no las 2 primeras de la tabla.
 Una objeción de tasa pesa distinto para alguien de Madrid que para alguien de Tampa.

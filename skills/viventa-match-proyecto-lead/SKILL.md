@@ -3,9 +3,9 @@ name: viventa-match-proyecto-lead
 description: >-
   Cruza los atributos de un lead de Viventa (formulario CC y resumen de Aircall, pegados) contra
   el inventario de Vivehome y entrega 2-3 proyectos ordenados por propósito de inversión, con el
-  preaprobado como techo, más 3 correos que el asesor aprueba antes de enviar. USA cuando: "armá
+  preaprobado como techo, más 3 correos que el asesor aprueba antes de enviar. USA cuando: "arma
   el match de este lead", "qué proyecto le sirve a este lead", "hazme los correos para este
-  lead", "cruzá lo que dijo el lead contra el inventario", "a este lead qué le recomendamos". Es
+  lead", "cruza lo que dijo el lead contra el inventario", "a este lead qué le recomendamos". Es
   para un lead activo: viventa-reactivacion-lead reabre uno que se cayó y viventa-ficha-proyecto
   describe un proyecto sin lead.
 metadata:
@@ -27,8 +27,8 @@ entra a Zoho, Aircall, Vivehome ni a la web: trabaja solo con lo pegado, en una 
 
 ## Cuándo usar
 
-- Explícito: "armá el match de este lead", "qué proyecto le sirve a este lead", "hazme los
-  correos para este lead", "cruzá lo que dijo el lead contra el inventario", "a este lead qué le
+- Explícito: "arma el match de este lead", "qué proyecto le sirve a este lead", "hazme los
+  correos para este lead", "cruza lo que dijo el lead contra el inventario", "a este lead qué le
   recomendamos".
 - Implícito: entró un registro con formulario CC diligenciado (y quizá una primera llamada) y el
   asesor tiene que mandar la primera propuesta concreta.
@@ -38,7 +38,7 @@ entra a Zoho, Aircall, Vivehome ni a la web: trabaja solo con lo pegado, en una 
 
 - **El lead ya se había caído del proceso** (formulario a medias, DM sin responder, no volvió
   después de hablar con el asesor) → `viventa-reactivacion-lead`.
-- **Querés la ficha de un proyecto, sin un lead concreto** → `viventa-ficha-proyecto`.
+- **Quieres la ficha de un proyecto, sin un lead concreto** → `viventa-ficha-proyecto`.
 - **Una secuencia masiva para una lista o un segmento** → `email-sequence`.
 
 ## Input del usuario
@@ -52,7 +52,7 @@ No usa conexiones: todo entra pegado como texto por el asesor.
 | Ciudad o zona de interés en Colombia (crítico) | Formulario CC | *"¿En qué ciudad de Colombia quiere comprar?"* — si el propósito es patrimonio familiar: *"¿Quién la va a habitar y en qué ciudad?"* |
 | Propósito de la inversión (crítico) | Formulario CC o la llamada | *"¿La quiere para vivir, para rentar, para que la habite su familia, o una mezcla?"* — nunca se asume "inversión" |
 | Techo: preaprobado o valor máximo de vivienda declarado (crítico) | Formulario CC | *"¿Tiene un preaprobado del banco? Si no, ¿hasta qué valor de vivienda está pensando?"* — un ingreso solo no sirve de techo (Paso 1) |
-| Inventario de Vivehome de esa ciudad | El asesor pega las filas: proyecto, constructora, ciudad, precio desde, área y alcobas, entrega, esquema de separación | *"Pegame las filas de Vivehome de {ciudad}."* — sin inventario no hay match |
+| Inventario de Vivehome de esa ciudad | El asesor pega las filas: proyecto, constructora, ciudad, precio desde, área y alcobas, entrega, esquema de separación | *"Pégame las filas de Vivehome de {ciudad}."* — sin inventario no hay match |
 | Quién firma y disponibilidad | El asesor | *"¿Quién firma los correos, qué dos días le ofrezco para la llamada y qué dos horarios para la videollamada?"* |
 | Testimonio de cliente | Solo de un caso en 🟢 (consentimiento escrito) producido por `viventa-caso-exito` | *"¿Hay un caso de éxito aprobado (🟢) que sirva para este lead?"* — sin él, el correo 2 va solo con la prueba concreta y se anota en D. Un verbatim del banco de voz o del VOC sin consentimiento no se usa |
 | Horizonte (cuándo vuelve o cuándo quiere renta) | Formulario o llamada | No se pregunta: sin él no se filtra por entrega y se anota en D |
@@ -64,14 +64,14 @@ No usa conexiones: todo entra pegado como texto por el asesor.
 
 ### Paso 1 — Gate de suficiencia (antes de tocar el inventario)
 
-1. Revisá las cuatro variables críticas: ciudad/zona, propósito, techo, elegibilidad.
+1. Revisa las cuatro variables críticas: ciudad/zona, propósito, techo, elegibilidad.
 2. **Techo.** Preaprobado → ese monto. Valor máximo declarado o rango → el extremo superior. Solo
    ingreso → no es techo (convertirlo en monto sería calcular crédito): cuenta como faltante.
 3. **Elegibilidad (gate binario).** Pasa si es colombiano, o extranjero casado con colombiano, o
    con primer grado de consanguinidad, **y** reside en: EE. UU., Canadá, Puerto Rico, Panamá,
    Costa Rica, El Salvador, México, Chile, Perú, Reino Unido, España, Italia, Francia, Alemania,
-   Suiza, Holanda, Bélgica, Australia, Nueva Zelanda o Emiratos Árabes. Si no pasa, decilo en
-   una línea con el motivo y pará: no hay match.
+   Suiza, Holanda, Bélgica, Australia, Nueva Zelanda o Emiratos Árabes. Si no pasa, dilo en
+   una línea con el motivo y para: no hay match.
 4. Si falta cualquiera de las cuatro, el output es **solo** este bloque:
 
    ```
@@ -88,27 +88,27 @@ No usa conexiones: todo entra pegado como texto por el asesor.
 ### Paso 2 — Filtrar el inventario
 
 1. **Geografía.** Quedan los proyectos de la ciudad/zona pedida (patrimonio familiar: la de quien
-   la va a habitar). Si ninguno está ahí, podés proponer otra ciudad solo declarándolo en A y en
+   la va a habitar). Si ninguno está ahí, puedes proponer otra ciudad solo declarándolo en A y en
    la ficha ("no hay proyectos en {ciudad}; esta es {otra}"), nunca en silencio.
-2. **Techo.** Calculá `% del techo = precio desde / techo × 100`. Más de 100% no entra, ni
+2. **Techo.** Calcula `% del techo = precio desde / techo × 100`. Más de 100% no entra, ni
    "estirándose un poquito".
-3. **Horizonte**, si lo hay: descartá lo que entrega después de cuando lo necesita (vivir: año de
-   retorno; rentar: cuando quiere empezar a recibir renta). Sin horizonte, no filtres y anotalo en D.
+3. **Horizonte**, si lo hay: descarta lo que entrega después de cuando lo necesita (vivir: año de
+   retorno; rentar: cuando quiere empezar a recibir renta). Sin horizonte, no filtres y anótalo en D.
 4. **Cuota inicial**, si la hay y el inventario trae esquema de separación: si el esquema pide
    más de lo que declaró, el proyecto sigue pero su ficha lo dice como riesgo.
-5. Si quedan **0** proyectos: no hay ficha ni correos. Entregá un bloque "Sin match en el
+5. Si quedan **0** proyectos: no hay ficha ni correos. Entrega un bloque "Sin match en el
    inventario" con qué filtro dejó afuera a cada proyecto y la pregunta que lo destrabaría
-   (ampliar zona, revisar techo con Crédito). Si queda **1**: seguí, con la justificación "fue el
+   (ampliar zona, revisar techo con Crédito). Si queda **1**: sigue, con la justificación "fue el
    único que pasó los filtros" en la ficha.
 
 ### Paso 3 — Ordenar por propósito y elegir el mejor calce
 
-1. Ordená por el atributo que maximiza el propósito (tabla completa en
+1. Ordena por el atributo que maximiza el propósito (tabla completa en
    `references/proposito-inversion.md` §1): **vivir** → área, alcobas, barrio, entrega alineada al
    retorno · **rentar** → entrega pronta, unidad pequeña de alta rotación · **patrimonio
    familiar** → cercanía a quien la habita, accesibilidad si es persona mayor · **mixto** → el
    propósito de corto plazo, y se nombra la tensión con el de largo plazo. El precio no ordena.
-2. Ubicá cada proyecto en su banda (heurística propia, no verificada — ver Reglas duras):
+2. Ubica cada proyecto en su banda (heurística propia, no verificada — ver Reglas duras):
 
    | % del techo | Rol |
    |---|---|
@@ -121,19 +121,19 @@ No usa conexiones: todo entra pegado como texto por el asesor.
    rentar, <70 cuenta igual que 70-85). Uno de 85-95 le gana solo si ofrece un atributo del
    propósito que ninguno de la banda baja da (p. ej. el único que entrega a tiempo para rentar),
    y la ficha lo escribe. Sin ninguno en 70-85, el primero de 85-95 o de <70, con esa misma
-   justificación. Si todos los que quedan están en 95-100, no hay mejor calce: tratalo como 0
+   justificación. Si todos los que quedan están en 95-100, no hay mejor calce: trátalo como 0
    proyectos del Paso 2.5.
-4. Elegí 2 o 3, comparables entre sí (misma ciudad, rango parecido). Nunca 4 o más.
+4. Elige 2 o 3, comparables entre sí (misma ciudad, rango parecido). Nunca 4 o más.
 
 ### Paso 4 — Leer la señal de Aircall
 
-La señal cambia el **ángulo** de los correos, nunca el **proyecto**. Aplicá la tabla de
+La señal cambia el **ángulo** de los correos, nunca el **proyecto**. Aplica la tabla de
 `references/aircall-senal-angulo.md`: desconfianza → el correo 2 va primero con prueba concreta;
 pregunta repetida → se responde por escrito, en el asunto si hace falta; comparó tasas con EE. UU.
 → correo 3 con la objeción #3; mencionó a la pareja → correo 3 con los dos; preguntó si debía
 viajar → una línea en el correo 2 (se firma con poder); sin ahorro para la inicial → solo en D,
 para validar "Mi Casa en Colombia" con Crédito; urgencia → espaciado 1-2-4 días. Sin resumen, o
-ambiguo, contradictorio o muy corto: ignorá la señal y anotalo en D.
+ambiguo, contradictorio o muy corto: ignora la señal y anótalo en D.
 
 ### Paso 5 — Redactar la ficha de match (bloque B)
 
@@ -158,7 +158,7 @@ Orden oferta → confianza → decisión. Mapa de objeciones en `references/obje
   legible en móvil, firma de quien firma.
 - Sin jerga sin traducir (LTV, DTI, amortización), sin "solución integral" ni "aliado
   estratégico", sin emojis de relleno, sin el ángulo de "raíces" (lo usan todos los brokers).
-- Prueba de intercambio: si el cuerpo del 1 cambia por el del 3 y el sentido no se rompe, reescribí.
+- Prueba de intercambio: si el cuerpo del 1 cambia por el del 3 y el sentido no se rompe, reescribe.
 - Espaciado por defecto 0 / 3 / 6-7 días; la secuencia se detiene si responde.
 
 ### Paso 7 — Redactar la lectura del lead (A) y las notas del asesor (D)
@@ -173,7 +173,7 @@ Orden oferta → confianza → decisión. Mapa de objeciones en `references/obje
 
 ### Paso 8 — Autovalidar y entregar
 
-Pasá el checklist; cualquier ✗ se corrige antes de entregar, no se entrega anotado.
+Pasa el checklist; cualquier ✗ se corrige antes de entregar, no se entrega anotado.
 
 - Cada dato de proyecto está literal en el inventario; los vacíos dicen `no disponible en el
   inventario` y están en D; si la fuente dice "desde", el entregable dice "desde".
@@ -182,7 +182,7 @@ Pasá el checklist; cualquier ✗ se corrige antes de entregar, no se entrega an
 - Correos: tres trabajos distintos, un CTA cada uno, nada de la lista negra, nada de datos
   personales fuera de lo permitido, ninguna mención de la llamada.
 
-Guardá el documento y cerrá con la frase de Output esperado.
+Guarda el documento y cierra con la frase de Output esperado.
 
 ## Reglas duras
 
@@ -194,7 +194,7 @@ Guardá el documento y cerrá con la frase de Output esperado.
   vivienda sí. Permitido: *"te deja $21 millones de margen, para escrituras o para no quedar
   apretado"*. Prohibido: *"te quedan $21 millones para la cuota inicial"*. `[⚠ no verificado]` la
   aplicabilidad exacta de Reg Z a este caso; validar con legal antes de escalar volumen.
-- **Nunca promete aprobación, tasa ni rentabilidad.** Lista negra literal: "ya calificás",
+- **Nunca promete aprobación, tasa ni rentabilidad.** Lista negra literal: "ya calificas",
   "seguro te aprueban", "con tu perfil no hay problema", cualquier tasa numérica, "tasa fija
   garantizada", "la mejor tasa del mercado", rentabilidad que el inventario no traiga como campo.
 - **Nunca expone datos personales.** Del lead, en los correos, solo nombre de pila, ciudad de
@@ -245,7 +245,7 @@ Espaciado: … · Si responde en cualquier punto, la secuencia se detiene y entr
 
 Ejemplo completo con datos ficticios: `references/ejemplo-completo.md`.
 
-Al terminar: *"Listo el match de {nombre}: mejor calce {proyecto} ({x}% del techo). Revisá el
+Al terminar: *"Listo el match de {nombre}: mejor calce {proyecto} ({x}% del techo). Revisa el
 bloque D antes de aprobar; los correos no se enviaron."*
 
 ## Skills relacionados

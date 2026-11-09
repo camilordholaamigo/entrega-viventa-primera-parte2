@@ -9,7 +9,7 @@ description: >-
   proyecto con el precio nuevo". Es el multiplicador: viventa-pack-evento define qué archivos y qué
   copy salen.
 metadata:
-  version: "1.0.0"
+  version: "1.2.0"
   domain: "produce"
   client: "viventa"
   blueprint: "marketing"
@@ -43,7 +43,8 @@ reemplazan las capas variables. El diseño y la aprobación siguen siendo de dis
 
 | Conexión | Para qué | Si falta |
 |---|---|---|
-| Figma (MCP) | Duplicar el frame maestro y reemplazar las capas de texto e imagen variables | Degrada: entrega el CSV listo para el plugin de data merge que diseño ya usa, con la lista de capas a enlazar. Lo dice en la primera línea |
+| Figma (MCP) | Duplicar el frame maestro y reemplazar las capas de texto e imagen variables | Degrada: entrega el CSV listo para el plugin de data merge que diseño ya usa, con la lista de capas a enlazar. Lo dice en la primera línea. **También degrada así cuando una tipografía de la maestra no carga** (LT Wave, PP Pangram): ver `references/figma-tipografias.md` |
+| Zoho Analytics (vista de Vivehome) | Precios y disponibilidad de proyectos para las piezas de proyecto | Usa la tabla que pegue el usuario o la hoja de `viventa-datos-publicables` |
 | ffmpeg (local) | Superponer en el video la placa variable (PNG exportado de Figma) en su tramo de tiempo y, si hay, la voz en off de cada ciudad | Degrada: entrega la tabla de placas por versión con tiempos de entrada y salida para montarlas en CapCut |
 
 ## Input del usuario
@@ -58,12 +59,18 @@ reemplazan las capas variables. El diseño y la aprobación siguen siendo de dis
 
 ## Workflow
 
-1. **Leé la convención de nombres y la tabla país → moneda** en
+1. **Lee la convención de nombres y la tabla país → moneda** en
    `references/naming-y-datamerge.md`. Es la
    tabla única: no la reescribas acá.
-2. **Mapeá columnas a capas.** Cada columna de la tabla tiene que caer en una capa de la maestra. Una
+2. **Mapea columnas a capas.** Cada columna de la tabla tiene que caer en una capa de la maestra. Una
    columna sin capa o una capa variable sin columna se reporta antes de generar nada.
-3. **Verificá cada fila** antes de producir su versión:
+2b. **Chequeo de tipografías (v2, noviembre de 2026).** Antes de duplicar nada, lee la tipografía real
+   de cada capa variable (familia y estilo de cada tramo) y prueba cargarla, como dice
+   `references/figma-tipografias.md` §2. Así se evita el error con **LT Wave** y **PP Pangram** que
+   reportó el equipo. Si alguna no carga: no se cambia por otra, no se genera esa capa, y se pasa al
+   CSV de data merge (camino B) diciendo qué tipografía faltó y cómo dejarla instalada (camino A).
+   Capas con tipografía mezclada: se reemplaza el texto por tramos para conservar cada estilo.
+3. **Verifica cada fila** antes de producir su versión:
    - Moneda coherente con el país del evento según la tabla única. Nunca `USA` como moneda ni `$` a secas.
    - Evento con ciudad, dirección exacta, fecha calendario y hora. Si falta uno, la fila queda `⛔ bloqueada`.
    - Teléfono con prefijo de país y escrito tal cual viene. Si el prefijo no corresponde al país del
@@ -72,20 +79,22 @@ reemplazan las capas variables. El diseño y la aprobación siguen siendo de dis
    - Ningún campo con tasa, cuota, plazo o aprobación de crédito: esos no son datos variables, son
      claims, y van a `viventa-qa-marca`.
    - Textos que no caben en la capa (desbordan o parten mal): se reporta, no se achica la letra.
-4. **Generá las versiones** de las filas que pasaron:
-   - Estáticas y flyers: duplicá el frame maestro en una página nueva del archivo, reemplazá las capas
-     y nombrá cada frame con la convención única.
-   - Video: superponé la placa de cada versión en su tramo (y la voz en off de esa ciudad si existe).
+4. **Genera las versiones** de las filas que pasaron:
+   - Estáticas y flyers: duplica el frame maestro en una página nueva del archivo, reemplaza las capas
+     y nombra cada frame con la convención única.
+   - Video: superpón la placa de cada versión en su tramo (y la voz en off de esa ciudad si existe).
      El resto del video no se recodifica dos veces.
-5. **Armá la tabla de control** con una fila por versión y por dato cambiado.
-6. **Revisá la muestra**: abrí (o renderizá) la primera y la última versión de cada tipo y
-   compará contra la tabla. Si una no coincide, pará y corregí el mapeo antes de entregar el resto.
+5. **Arma la tabla de control** con una fila por versión y por dato cambiado.
+6. **Revisa la muestra**: abre (o renderiza) la primera y la última versión de cada tipo y
+   compara contra la tabla. Si una no coincide, para y corrige el mapeo antes de entregar el resto.
 
 ## Reglas duras
 
 - **Nunca escribe un dato que no esté en la tabla**: no deduce teléfonos, correos ni direcciones, no
   convierte monedas y no actualiza precios por su cuenta.
 - **Nunca modifica la pieza maestra** ni sus capas fijas; trabaja sobre duplicados.
+- **Nunca reemplaza una tipografía que no carga por otra "parecida"**, ni aplana una capa de estilos
+  mezclados a un solo estilo: pasa al camino B y lo dice.
 - **Nunca exporta una fila bloqueada** ni una con precio sin fecha de corte.
 - **Nunca genera voz sintética** para reemplazar la voz en off de una ciudad.
 - **Nunca publica ni envía** las versiones: quedan en Figma o en la carpeta para revisión de marca.
@@ -99,6 +108,7 @@ versionados y `CONTROL.md`:
 ```
 VERSIONES — {pieza maestra} · {evento o proyecto} · {fecha}
 {n} versiones generadas · {n} bloqueadas · {n} con ⚠ verificar
+Tipografías: {todas cargaron | ⛔ {familia estilo} no disponible → versiones por CSV de data merge}
 
 | Archivo | Dato | Valor | Fuente | Corte | Estado |
 |---|---|---|---|---|---|
@@ -108,7 +118,7 @@ VERSIONES — {pieza maestra} · {evento o proyecto} · {fecha}
 Bloqueadas: {archivo} — falta {dato}. Pedírselo a {área dueña}.
 ```
 
-Al terminar, decí: *"{n} versiones listas en {Figma / ruta}. {n} bloqueadas y {n} por verificar
+Al terminar, di: *"{n} versiones listas en {Figma / ruta}. {n} bloqueadas y {n} por verificar
 (arriba en CONTROL.md). Pásalas por viventa-qa-marca antes de mandarlas."*
 
 ## Skills relacionados

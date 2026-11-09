@@ -57,8 +57,8 @@ SKILL.md).
 
 ```
 Viventa — <dirección física completa, ciudad, estado, ZIP>
-Recibís este correo porque dejaste tus datos con nosotros.
-Si preferís no recibir más, dale de baja acá: <enlace de 1 clic>
+Recibes este correo porque dejaste tus datos con nosotros.
+Si prefieres no recibir más, dale de baja acá: <enlace de 1 clic>
 ```
 
 ---

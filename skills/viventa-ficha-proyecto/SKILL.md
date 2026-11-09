@@ -1,15 +1,17 @@
 ---
 name: viventa-ficha-proyecto
 description: >-
-  Convierte una fila del inventario de Vivehome (y lo que dijo el comercial) en una
-  ficha de 1 página para llamada y para producir pieza sin escribirle a ventas.
+  Convierte el inventario de Vivehome —leído de Zoho Analytics o pegado— en fichas de 1 página para
+  llamada y para producir pieza sin escribirle a ventas; en modo Vivehome detecta las novedades
+  (proyectos nuevos, precios, agotados) y prepara las variables de las piezas y el aviso a diseño
+  (Alejandra aprueba el diseño).
   Separa dato, interpretación y afirmación atribuida, y bloquea los textos publicables si falta un
   campo que la Circular 004 de 2024 de la SIC exige. USA cuando: "hazme la ficha del proyecto",
   "necesito la info de este proyecto para una pieza", "arma el battlecard de este proyecto", "qué
   ángulos uso para vender este proyecto". Es 1-a-muchos: viventa-match-proyecto-lead cruza
   proyectos con un lead y viventa-qa-marca revisa la pieza ya hecha.
 metadata:
-  version: "1.1.0"
+  version: "2.0.0"
   domain: "operate"
   client: "viventa"
   blueprint: "marketing"
@@ -25,6 +27,16 @@ copian carácter por carácter, lo que dijo un comercial queda atribuido y nunca
 4 campos de la Circular 004 no hay textos publicables, y ninguna frase promete valorización,
 rentabilidad ni aprobación de crédito.
 
+> **Qué cambió en la v2 (feedback del equipo, noviembre de 2026):** *"el proceso se vuelve muy manual
+> porque depende de otros… tenemos Zoho Analytics, ella [Aleja] tiene que ser la que apruebe el
+> diseño; necesitamos que consuma de Vivehome, que está en Zoho Analytics, y le avise a Aleja por
+> novedades"*. Ahora la skill tiene un **modo Vivehome** (Paso 0): lee el inventario directamente de la
+> vista de Vivehome en Zoho Analytics, lo compara con la última lectura y saca las **novedades**
+> (proyectos nuevos, precios que cambiaron, unidades agotadas, fechas de entrega movidas). Por cada
+> novedad prepara la ficha, la fila de variables para `viventa-versionador-piezas` y **el aviso para
+> Alejandra (diseño), que es quien aprueba el diseño**. Ya no se le pide a comercial lo que Vivehome
+> ya tiene: solo lo que falta en Vivehome.
+
 ## Cuándo usar
 
 - Explícito: "hazme la ficha del proyecto", "necesito la info de este proyecto para una pieza",
@@ -33,6 +45,9 @@ rentabilidad ni aprobación de crédito.
   organízamelo".
 - Implícito: marketing tiene que producir una pieza de un proyecto y solo tiene una fila del
   inventario o un Excel con precio; o un comercial contó en sesión por qué vende un proyecto.
+- **Modo Vivehome:** "qué cambió en Vivehome", "revisa las novedades de proyectos", "actualiza las
+  piezas de proyectos con Vivehome", "avísale a Aleja qué cambió". Cadencia sugerida: **semanal**
+  (lunes), y cada vez que comercial anuncie un proyecto nuevo.
 - Cadencia: por proyecto, y de nuevo cada vez que cambia la fecha de corte del inventario.
 
 ## Cuándo NO usar
@@ -46,19 +61,57 @@ rentabilidad ni aprobación de crédito.
 
 | Campo | De dónde sale | Si falta, preguntar |
 |---|---|---|
-| Fuente tabular del proyecto (fila o export de Vivehome o del Excel de inventario) | El usuario la pega como texto, tabla o archivo | *"Pégame la fila del proyecto tal como sale de Vivehome (o el export del inventario), y dime el nombre del archivo y la fecha de corte. Sin eso no puedo hacer la ficha: cualquier dato que ponga sería inventado."* Sin fuente, para |
+| Fuente tabular del proyecto: **la vista de Vivehome en Zoho Analytics** (preferida) o el Excel de inventario | En este orden: (1) **conector de Zoho Analytics** en Claude, si la cuenta lo tiene instalado `[⚠ verificar disponibilidad en su plan]`; (2) **enlace publicado de la vista** en CSV (Zoho Analytics → Compartir → Publicar / exportar como CSV con enlace privado) que la skill lee directamente; (3) el **export** de la vista (CSV o Excel) pegado o adjunto | Si no llega por ninguno de los tres: *"Pégame la fila del proyecto (o el export de la vista de Vivehome) y su fecha de corte. Sin eso cualquier dato sería inventado."* Sin fuente, para |
+| Lectura anterior de Vivehome (solo modo Vivehome) | El archivo `vivehome-ultima-lectura.csv` que dejó la corrida anterior, o el export anterior pegado | No se pregunta. Sin lectura anterior, todo el inventario cuenta como "primera lectura" y no hay novedades: se guarda como base para la próxima |
 | Nombre del archivo fuente y fecha de corte | El usuario | Se preguntan en una línea. Si no los tiene: `Fuente: no declarada` / `Corte: no declarado` y la ficha queda **no apta para pieza pagada** |
 | Verbatims del comercial, con nombre y fecha de la sesión | El usuario | Opcional. Si vienen sin nombre o fecha, se piden una vez; si siguen sin venir: `Comercial [nombre no declarado] — sesión [fecha no declarada]`, capa 🟧 no publicable. Sin verbatims: bloque 🟧 vacío con la línea de pedido del Output |
 | Sub-segmento objetivo ya decidido | El usuario | Opcional. Si no viene, se elige en el Paso 3 |
 
-No se busca en internet ni se leen renders o fotos como dato: lo que no está en la fuente pegada es
+No se busca en internet ni se leen renders o fotos como dato: lo que no está en la fuente (Vivehome o lo pegado) es
 un faltante.
 
 ## Workflow
 
+### Paso 0 — Modo Vivehome: traer el inventario y sacar las novedades
+
+Solo cuando el pedido es por novedades o por "todos los proyectos". Para una ficha suelta, se salta
+al Paso 1.
+
+1. **Trae la vista de Vivehome** por el primer camino disponible (conector → enlace CSV → export) y
+   anota la **fecha y hora de la lectura**: esa es la fecha de corte de todo lo que salga de ahí.
+2. **Compárala con la lectura anterior** por el identificador del proyecto (o nombre + constructora,
+   si no hay id) y clasifica cada diferencia:
+
+   | Novedad | Qué la dispara | Qué hay que hacer |
+   |---|---|---|
+   | 🆕 Proyecto nuevo | Está hoy y no estaba | Ficha completa (pasos 1-6) + brief para `viventa-piezas-figma` |
+   | 💲 Precio cambió | Cambió el precio desde | Fila de variables para `viventa-versionador-piezas` (precio nuevo, corte nuevo) + lista de piezas vivas con el precio viejo |
+   | 📦 Disponibilidad | Bajó a 0 unidades o cambió de estado (agotado, últimas unidades según Vivehome) | Pedir que se **pausen** las piezas de ese proyecto (si se agotó) o actualizar el dato |
+   | 📅 Entrega movida | Cambió la fecha estimada de entrega | Fila de variables + revisar textos que la mencionan |
+   | ❌ Salió del inventario | Estaba y hoy no está | Pedir que se pausen sus piezas y confirmar con comercial si fue un error del export |
+
+   Un cambio que no afecta ninguna pieza (p. ej. un campo interno) no se reporta.
+3. **Lo que falta en Vivehome** (p. ej. "¿es VIS?", el área privada) se pide **una sola vez**, en un
+   solo mensaje al comercial a cargo, solo para los proyectos con novedad. Lo que Vivehome ya tiene no
+   se le pregunta a nadie.
+4. **Arma el aviso para Alejandra** (diseño), listo para pegar en el canal del equipo (o como borrador
+   de correo o Slack si la cuenta tiene ese conector; la skill no lo envía):
+   ```
+   Aleja, novedades de Vivehome al {fecha y hora de la lectura}:
+   🆕 {n} proyectos nuevos: {nombres} → brief de piezas adjunto, falta tu diseño y tu aprobación.
+   💲 {n} precios cambiaron: {proyecto: antes → ahora} → {n} piezas a versionar (tabla adjunta).
+   📦 {n} proyectos agotados: {nombres} → sugerimos pausar {n} piezas.
+   Tú apruebas el diseño; después pasa por revisión de marca.
+   ```
+5. **Guarda la lectura de hoy** como `vivehome-ultima-lectura.csv` en la carpeta de salida: es la
+   base de la próxima comparación. En Claude (chat) se le entrega al usuario para que la guarde y la
+   pegue la próxima vez.
+6. Para los proyectos 🆕, sigue con los pasos 1-6 de abajo; para los demás, la ficha solo se
+   actualiza en los campos que cambiaron.
+
 ### Paso 1 — Copiar los 10 campos duros (🟦)
 
-1. Copiá literal, una celda por campo: nombre · constructora · ciudad + dirección exacta (barrio ≠
+1. Copia literal, una celda por campo: nombre · constructora · ciudad + dirección exacta (barrio ≠
    dirección) · área privada construida (con rango si lo hay) · precio desde en COP con fecha de
    corte · fecha estimada de entrega (misma granularidad) · estrato · cuota de administración
    aproximada · parqueaderos (cuántos, propios o comunes, si cuestan aparte) · ¿es VIS? (Sí / No /
@@ -87,22 +140,22 @@ un faltante.
    Alicante) y Reino Unido · Puerto Rico · vivienda usada / segunda compra · sin cuota inicial
    ahorrada (programa "Mi Casa en Colombia" del FNA, enunciable como programa existente, nunca como
    aprobación).
-3. Escribí primario, secundario y **"no aplica bien a:"** (obligatorio).
+3. Escribe primario, secundario y **"no aplica bien a:"** (obligatorio).
 4. Si falta el precio, el sub-segmento se escribe como hipótesis 🟨 marcada `sin precio: no filtra`.
 
 ### Paso 4 — De atributo a ángulo
 
-1. Clasificá cada dato 🟦 en un rol: **reduce miedo** (dirección, estrato, constructora, área:
+1. Clasifica cada dato 🟦 en un rol: **reduce miedo** (dirección, estrato, constructora, área:
    verificable a distancia) · **habilita el deseo** (m², alcobas, zonas comunes, ciudad) · **define la
    puerta de entrada** (precio desde, separación, entrega, VIS).
-2. Escribí exactamente 3 ángulos, uno por rol, cada uno en 4 eslabones: atributo 🟦 → qué hace → qué
+2. Escribe exactamente 3 ángulos, uno por rol, cada uno en 4 eslabones: atributo 🟦 → qué hace → qué
    significa para él → prueba. Nunca tres de deseo: el territorio emocional de "raíces" está
    saturado entre los brokers del sector.
-3. Si no podés señalar el dato 🟦 de un ángulo, el ángulo se cae y se dice por qué.
+3. Si no puedes señalar el dato 🟦 de un ángulo, el ángulo se cae y se dice por qué.
 
 ### Paso 5 — Aplicar el semáforo legal
 
-Aplicalo a todo lo publicable (ángulos, titular, bajada, CTA, respuestas de objeción) con la tabla
+Aplícalo a todo lo publicable (ángulos, titular, bajada, CTA, respuestas de objeción) con la tabla
 completa de `references/semaforo-legal.md`:
 
 | 🟢 Se puede decir | 🟡 Exige respaldo en la ficha | 🔴 Prohibido |
@@ -118,7 +171,7 @@ completa de `references/semaforo-legal.md`:
 ### Paso 6 — Procesar lo que dijo el comercial (🟧)
 
 1. Cada verbatim queda en 🟧 con cita, nombre, fecha y estado. Nada se descarta en silencio.
-2. Clasificalo:
+2. Clasifícalo:
    - **Hecho verificable** (distancia al mar, colegio cerca, acabados) → se pide la evidencia; si
      llega, sube a 🟦 con su fuente; si no, queda 🟧 y no se publica.
    - **Lectura de mercado** ("a la gente de Miami le encanta esta zona") → baja a 🟨, sin cifras,
@@ -131,21 +184,21 @@ completa de `references/semaforo-legal.md`:
 
 ### Paso 7 — Derivar exactamente 2 objeciones
 
-1. Leé los disparadores en los datos: entrega a más de 12 meses → *"¿y si no entregan?"* · precio
+1. Lee los disparadores en los datos: entrega a más de 12 meses → *"¿y si no entregan?"* · precio
    alto para el segmento → costo y tasa · ciudad con narrativa de seguridad → objeción de contexto
    país · constructora poco conocida → *"¿quién me responde?"* · VIS → *"nadie me dijo que era VIS"*
    · sin dato de separación → costo y "sin cuota inicial".
-2. Ordená por probabilidad para el sub-segmento primario y quedate con las 2 primeras.
-3. Instanciá la respuesta con un dato del proyecto; no pegues el párrafo del playbook
+2. Ordena por probabilidad para el sub-segmento primario y quédate con las 2 primeras.
+3. Instancia la respuesta con un dato del proyecto; no pegues el párrafo del playbook
    (`references/objeciones-playbook.md`).
-4. Etiquetá cada respuesta: `✅ apta para pieza` o `⚠ apta para llamada, no para pieza sin fuente`
+4. Etiqueta cada respuesta: `✅ apta para pieza` o `⚠ apta para llamada, no para pieza sin fuente`
    (cuando toca valorización, rentabilidad, tasa, cuota, plazo o aprobación).
 
 ### Paso 8 — Escribir y chequear
 
-1. Llená la plantilla del Output esperado. Techos: ~450 palabras más la tabla · 3 ángulos · 2
+1. Llena la plantilla del Output esperado. Techos: ~450 palabras más la tabla · 3 ángulos · 2
    objeciones · 1 titular · 1 bajada · 1 CTA.
-2. Chequeá, y si falla uno de los 5 primeros, corregí antes de entregar: (1) archivo y corte en el
+2. Chequea, y si falla uno de los 5 primeros, corrige antes de entregar: (1) archivo y corte en el
    encabezado · (2) 3 datos 🟦 al azar están en la fuente · (3) ningún campo con valor que no esté en
    la fuente · (4) los 4 campos de la Circular están o la ficha dice BLOQUEADA sin textos · (5) cero
    futuro, tasa, cuota, plazo o conversión de moneda en lo publicable · (6) capas separadas · (7)
@@ -173,8 +226,20 @@ completa de `references/semaforo-legal.md`:
 
 ## Output esperado
 
-No escribe archivos. Devuelve la ficha en la conversación, en markdown pegable en Google Docs o en
-un mensaje:
+Devuelve la ficha en la conversación, en markdown pegable en Google Docs o en un mensaje. **En modo
+Vivehome**, antes de las fichas va el bloque de novedades y, si hay dónde guardar, el archivo
+`vivehome-ultima-lectura.csv`:
+
+```markdown
+**NOVEDADES DE VIVEHOME — lectura {fecha y hora} · comparada con {fecha anterior}**
+| Proyecto | Novedad | Antes | Ahora | Piezas afectadas | Qué hacer |
+**Variables para versionar** (pegar en `viventa-versionador-piezas`)
+| Proyecto | precio_desde | moneda | corte | entrega_estimada | disponibilidad |
+**Aviso para Alejandra (diseño, aprueba el diseño)** — {texto del Paso 0.4}
+**Pedido único a comercial** — {solo lo que Vivehome no tiene}
+```
+
+Formato de cada ficha:
 
 ```markdown
 **FICHA DE PROYECTO — {Nombre}**
